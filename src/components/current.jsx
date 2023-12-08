@@ -7,7 +7,6 @@ function Current(props) {
   const { townInfo } = useContext(Town)
   console.log('current town', townInfo)
   const { isLoading, error, current, weatherCode } = useCurrent(props)
-  // console.log(current)
 
   if (isLoading) {
     return <div>Is Loading...</div>
@@ -15,7 +14,7 @@ function Current(props) {
   if (error) {
     return <div>Error : {error}</div>
   }
-  // console.log('town.selectedTown', town.selectedTown)
+  
   return (
     townInfo &&
     townInfo.selectedTown && (

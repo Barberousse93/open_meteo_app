@@ -12,13 +12,11 @@ export default function useTownSearch(props) {
   const [resultList, setResultList] = useState([])
 
   useEffect(() => {
-    // console.log(searchVal)
     if (searchVal) fetchTownSearch()
   }, [searchVal])
 
   useEffect(() => {
     if (data && data.results) {
-      // console.log('data', data)
       setResultList(data.results)
     }
   }, [data])
@@ -59,7 +57,6 @@ export default function useTownSearch(props) {
   }
 
   async function fetchTownSearch() {
-    // console.log('searchVal', searchVal)
     const apiUrl = props.mock
       ? 'src/mockedDatas/geocoding_List.json'
       : `https://geocoding-api.open-meteo.com/v1/search?name=${searchVal}&count=20&language=fr&format=json`

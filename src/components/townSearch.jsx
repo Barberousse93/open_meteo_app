@@ -10,7 +10,7 @@ import ClearIcon from '@mui/icons-material/Clear'
 import useTownSearch from '../utils/Hooks/useTownSearch'
 import { Town } from '../App'
 
-import Current from './current'
+// import Current from './current'
 
 function TownSearch(props) {
   const town = useContext(Town)
@@ -34,7 +34,7 @@ function TownSearch(props) {
   if (error) {
     return <div>Error : {error}</div>
   }
-  console.log('context : ', town)
+  // console.log('context : ', town)
   return (
     <>
       <TextField

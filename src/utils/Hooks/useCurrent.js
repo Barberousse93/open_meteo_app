@@ -14,15 +14,11 @@ export default function useCurrent(props) {
   const [current, setCurrent] = useState({})
   const [weatherCode, setWeatherCode] = useState({ description: '', image: '' })
 
-  // console.log('current')
-
   useEffect(() => {
     if (townInfo.selectedTown) {
       fetchCurrent()
     }
   }, [townInfo])
-
-  // town.selectedTown && fetchCurrent()
 
   useEffect(() => {
     if (data && data.current) {
@@ -38,7 +34,6 @@ export default function useCurrent(props) {
   }, [data])
 
   async function fetchCurrent() {
-    console.log('coucou')
     const apiUrl = props.mock
       ? 'src/mockedDatas/current.json'
       : `https://api.open-meteo.com/v1/forecast?latitude=${townInfo.latitude}&longitude=${townInfo.longitude}&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&timezone=auto`
