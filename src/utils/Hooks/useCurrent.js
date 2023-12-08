@@ -1,17 +1,28 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import useFetch from './useFetch'
+import { Town } from '../../App'
+
 import { dateFormat } from '../dateFormat'
 import decryptWeatherCode from '../decryptWeatherCode'
 
 export default function useCurrent(props) {
+  const { townInfo } = useContext(Town)
+  console.log('useCurrent town', townInfo)
+
   const [url, setUrl] = useState('')
   const { data, isLoading, error } = useFetch(url)
   const [current, setCurrent] = useState({})
   const [weatherCode, setWeatherCode] = useState({ description: '', image: '' })
 
+  // console.log('current')
+
   useEffect(() => {
-    fetchCurrent()
-  })
+    if (townInfo.selectedTown) {
+      fetchCurrent()
+    }
+  }, [townInfo])
+
+  // town.selectedTown && fetchCurrent()
 
   useEffect(() => {
     if (data && data.current) {
@@ -22,19 +33,15 @@ export default function useCurrent(props) {
         ...rest,
         time: formattedDate,
       })
-      // const newCurrent = { ...data.current }
-      // newCurrent.time = formattedDate
-      // setCurrent(newCurrent)
-      // const code = data.current.weather_code
-      // const nightDayCode = data.current.is_day
       setWeatherCode(decryptWeatherCode({ code, nightDayCode }))
     }
   }, [data])
 
   async function fetchCurrent() {
+    console.log('coucou')
     const apiUrl = props.mock
       ? 'src/mockedDatas/current.json'
-      : 'https://api.open-meteo.com/v1/forecast?latitude=48.5115&longitude=3.5601&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&timezone=auto'
+      : `https://api.open-meteo.com/v1/forecast?latitude=${townInfo.latitude}&longitude=${townInfo.longitude}&current=temperature_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&timezone=auto`
 
     setUrl(apiUrl)
   }

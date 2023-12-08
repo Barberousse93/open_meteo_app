@@ -7,7 +7,7 @@ export const useFetch = (url) => {
 
   useEffect(() => {
     if (url) {
-      // console.log('url', url)
+      console.log('url', url)
       fetchData()
       console.log('refresh !', url)
     }
@@ -24,7 +24,7 @@ export const useFetch = (url) => {
       setData(newData)
       // console.log(data)
     } catch (error) {
-      // alert(error.message)
+      alert(error.message)
       setError(error.message)
     } finally {
       setIsLoading(false)
