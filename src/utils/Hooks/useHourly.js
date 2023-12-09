@@ -26,7 +26,7 @@ export default function useHourly(props) {
   }, [townInfo])
 
   useEffect(() => {
-    if (data) {
+    if (data.hourly) {
       console.log('use Hourly data.hourly', data)
       setHourly(data.hourly)
       console.log(hourly)
@@ -36,7 +36,7 @@ export default function useHourly(props) {
   async function fetchHourly() {
     const apiUrl = props.mock
       ? 'src/mockedDatas/hourly.json'
-      : `https://api.open-meteo.com/v1/forecast?latitude=${townInfo.latitude}&longitude=${townInfo.longitude}&hourly=temperature_2m,apparent_temperature,precipitation_probability,rain,showers,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day&timezone=auto&past_days=1&past_hours=1&forecast_hours=24
+      : `https://api.open-meteo.com/v1/forecast?latitude=${townInfo.latitude}&longitude=${townInfo.longitude}&hourly=temperature_2m,apparent_temperature,precipitation_probability,rain,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day&timezone=auto&past_days=1&past_hours=1&forecast_hours=24
       `
 
     setUrl(apiUrl)
