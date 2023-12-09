@@ -1,26 +1,34 @@
 import React, { useContext } from 'react' // , { useContext }
 import useCurrent from '../utils/Hooks/useCurrent'
 import NavigationIcon from '@mui/icons-material/Navigation'
+import Link from '@mui/material/Link'
 import { Town } from '../App'
+import Loader from './loader'
 
 function Current(props) {
   const { townInfo } = useContext(Town)
-  console.log('current town', townInfo)
   const { isLoading, error, current, weatherCode } = useCurrent(props)
 
   if (isLoading) {
-    return <div>Is Loading...</div>
+    return <Loader />
   }
   if (error) {
     return <div>Error : {error}</div>
   }
-  
+
   return (
     townInfo &&
     townInfo.selectedTown && (
       <>
         <div> Données mockée ? : {props.mock ? 'true' : 'false'}</div>
         <h1>{townInfo.selectedTown} </h1>
+        <Link
+          href={`https://www.google.fr/maps/@${townInfo.latitude},${townInfo.longitude},13z?entry=ttu`}
+          target='_blank'
+          underline='hover'
+        >
+          Carte
+        </Link>
         <div>Heure mise à jour : {current.time}</div>
         <div>
           Température : {current.temperature_2m}°C (ressenti : {current.apparent_temperature}°C)

@@ -12,14 +12,19 @@ export default function useTownSearch(props) {
   const [resultList, setResultList] = useState([])
 
   useEffect(() => {
-    if (searchVal) fetchTownSearch()
-  }, [searchVal])
-
-  useEffect(() => {
-    if (data && data.results) {
-      setResultList(data.results)
+    if (searchVal) {
+      fetchTownSearch()
+      if (data && data.results) {
+        setResultList(data.results)
+      }
     }
-  }, [data])
+  }, [searchVal, data])
+
+  // useEffect(() => {
+  //   if (data && data.results) {
+  //     setResultList(data.results)
+  //   }
+  // }, [data])
 
   function handleClick() {
     setSearchVal(townInfo.name)
@@ -45,15 +50,12 @@ export default function useTownSearch(props) {
   }
 
   function handleClickItem(props) {
-    console.log('handleClickItem props', props)
     setTownInfo((prevTownInfo) => ({
       ...prevTownInfo,
       selectedTown: props.name,
       latitude: props.latitude,
       longitude: props.longitude,
     }))
-
-    console.log('useTownSearch town', townInfo) // <== OK
   }
 
   async function fetchTownSearch() {

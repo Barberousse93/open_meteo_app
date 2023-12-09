@@ -9,10 +9,12 @@ import '@fontsource/roboto/700.css'
 
 import Current from './components/current.jsx'
 import TownSearch from './components/townSearch.jsx'
+import Hourly from './components/hourly.jsx'
 import SwitchTheme from './components/SwitchTheme.jsx'
+// import Loader from './components/loader.jsx'
 import { createContext } from 'react'
 
-const mock = true
+const mock = false
 
 const TownInfos = { name: '', latitude: '', longitude: '', selectedTown: '' }
 export const Town = createContext(TownInfos)
@@ -27,6 +29,7 @@ export default function App() {
         <Town.Provider value={{ townInfo, setTownInfo }}>
           <TownSearch mock={mock} />
           <Current mock={mock} />
+          <Hourly mock={mock} />
         </Town.Provider>
       </ThemeHandler>
     </>

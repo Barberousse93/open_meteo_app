@@ -7,7 +7,6 @@ import decryptWeatherCode from '../decryptWeatherCode'
 
 export default function useCurrent(props) {
   const { townInfo } = useContext(Town)
-  console.log('useCurrent town', townInfo)
 
   const [url, setUrl] = useState('')
   const { data, isLoading, error } = useFetch(url)

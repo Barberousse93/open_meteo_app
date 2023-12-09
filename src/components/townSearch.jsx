@@ -8,6 +8,7 @@ import Select from '@mui/material/Select'
 import SearchIcon from '@mui/icons-material/Search'
 import ClearIcon from '@mui/icons-material/Clear'
 import useTownSearch from '../utils/Hooks/useTownSearch'
+import Loader from './loader'
 import { Town } from '../App'
 
 // import Current from './current'
@@ -29,7 +30,7 @@ function TownSearch(props) {
   } = useTownSearch(props)
 
   if (isLoading) {
-    return <div>Is Loading...</div>
+    return <Loader />
   }
   if (error) {
     return <div>Error : {error}</div>

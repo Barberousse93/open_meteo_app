@@ -7,7 +7,7 @@ export const useFetch = (url) => {
 
   useEffect(() => {
     if (url) {
-      console.log('url', url)
+      // console.log('url', url)
       fetchData()
       console.log('refresh !', url)
     }
