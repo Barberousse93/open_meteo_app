@@ -15,7 +15,6 @@ export default function useHourly(props) {
   useEffect(() => {
     if (hourly) {
       setConvertedHourly(convertHourly(hourly))
-      console.log(convertedHourly)
     }
   }, [hourly])
 
@@ -29,7 +28,6 @@ export default function useHourly(props) {
     if (data.hourly) {
       console.log('use Hourly data.hourly', data)
       setHourly(data.hourly)
-      console.log(hourly)
     }
   }, [data])
 
