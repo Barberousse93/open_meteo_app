@@ -26,7 +26,6 @@ export default function useHourly(props) {
 
   useEffect(() => {
     if (data.hourly) {
-      console.log('use Hourly data.hourly', data)
       setHourly(data.hourly)
     }
   }, [data])
