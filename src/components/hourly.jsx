@@ -111,7 +111,7 @@ function Hourly(props) {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'center',
-          alignItemst: 'center',
+          alignItems: 'center',
         }}
       >
         <div
@@ -239,7 +239,7 @@ function Hourly(props) {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'center',
-          alignItems: center,
+          alignItems: 'center',
         }}
       >
         <div
