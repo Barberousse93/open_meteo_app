@@ -50,10 +50,10 @@ function Hourly(props) {
     const { cx, cy, payload } = props
     switch (true) {
       case payload.temperature <= 0:
-        return <Frost x={cx - 10} y={cy - 10} width={20} height={20} style={{ color: '#00f' }} />
+        return <Frost x={cx - 10} y={cy + 5} width={20} height={20} style={{ color: '#00f' }} />
         break
       case payload.temperature > 30:
-        return <Hot x={cx - 10} y={cy - 10} width={20} height={20} style={{ color: '#f00' }} />
+        return <Hot x={cx - 10} y={cy + 5} width={20} height={20} style={{ color: '#f00' }} />
         break
       default:
         return (
@@ -91,7 +91,7 @@ function Hourly(props) {
     return directions[index]
   }
 
-  const CustomTooltip = ({ active, payload }) => {
+  const CustomTooltipTemperatures = ({ active, payload }) => {
     if (active && payload) {
       return (
         <>
@@ -104,7 +104,41 @@ function Hourly(props) {
     }
   }
 
-  const CustomTooltip2 = ({ active, payload }) => {
+  const CustomLegendTemperatures = () => {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItemst: 'center',
+        }}
+      >
+        <div
+          style={{
+            width: '10px',
+            height: '10px',
+            backgroundColor: '#8884d8',
+            borderRadius: '50%',
+            marginRight: '5px',
+          }}
+        ></div>
+        <div style={{ color: '#8884d8', marginRight: '10px' }}>Températures réelles</div>
+        <div
+          style={{
+            width: '10px',
+            height: '10px',
+            backgroundColor: '#82ca9d',
+            borderRadius: '50%',
+            marginRight: '5px',
+          }}
+        ></div>
+        <div style={{ color: '#82ca9d' }}>Températures ressenties</div>
+      </div>
+    )
+  }
+
+  const CustomTooltipPrecipitations = ({ active, payload }) => {
     if (active && payload) {
       // console.log(payload[0].payload.pluie)
       const code = payload[0].payload.code
@@ -128,7 +162,61 @@ function Hourly(props) {
     }
   }
 
-  const CustomTooltip3 = ({ active, payload }) => {
+  const CustomLegendPrecipitations = () => {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div
+          style={{
+            width: '10px',
+            height: '10px',
+            backgroundColor: '#8884d8',
+            borderRadius: '50%',
+            marginRight: '5px',
+          }}
+        ></div>
+        <div style={{ color: '#8884d8', marginRight: '10px' }}>% Pécipitaions</div>
+        <div
+          style={{
+            width: '10px',
+            height: '10px',
+            backgroundColor: '#d88484',
+            borderRadius: '50%',
+            marginRight: '5px',
+          }}
+        ></div>
+        <div style={{ color: '#d88484', marginRight: '10px' }}>Couverture nuageuse</div>
+        <div
+          style={{
+            width: '10px',
+            height: '10px',
+            backgroundColor: '#82ca9d',
+            borderRadius: '50%',
+            marginRight: '5px',
+          }}
+        ></div>
+        <div style={{ color: '#82ca9d', marginRight: '10px' }}>Quantité pluie</div>
+        <div
+          style={{
+            width: '10px',
+            height: '10px',
+            backgroundColor: '#caa282',
+            borderRadius: '50%',
+            marginRight: '5px',
+          }}
+        ></div>
+        <div style={{ color: '#caa282', marginRight: '10px' }}>Quantité neige</div>
+      </div>
+    )
+  }
+
+  const CustomTooltipVents = ({ active, payload }) => {
     if (active && payload) {
       // console.log(payload[0].payload.pluie)
       const direction = convertirEnDirection(payload[0].payload.direction)
@@ -142,6 +230,40 @@ function Hourly(props) {
         </>
       )
     }
+  }
+
+  const CustomLegendVents = () => {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: center,
+        }}
+      >
+        <div
+          style={{
+            width: '10px',
+            height: '10px',
+            backgroundColor: '#8884d8',
+            borderRadius: '50%',
+            marginRight: '5px',
+          }}
+        ></div>
+        <div style={{ color: '#8884d8', marginRight: '10px' }}>Vitesse du vent</div>
+        <div
+          style={{
+            width: '10px',
+            height: '10px',
+            backgroundColor: '#82ca9d',
+            borderRadius: '50%',
+            marginRight: '5px',
+          }}
+        ></div>
+        <div style={{ color: '#82ca9d' }}>Rafales</div>
+      </div>
+    )
   }
 
   return (
@@ -158,8 +280,8 @@ function Hourly(props) {
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis dataKey='time' />
           <YAxis />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend />
+          <Tooltip content={<CustomTooltipTemperatures />} />
+          <Legend content={<CustomLegendTemperatures />} />
           <Line
             type='monotone'
             dataKey='temperature'
@@ -179,8 +301,8 @@ function Hourly(props) {
           <XAxis dataKey='time' />
           <YAxis yAxisId='left' />
           <YAxis yAxisId='right' orientation='right' />
-          <Tooltip content={<CustomTooltip2 />} />
-          <Legend />
+          <Tooltip content={<CustomTooltipPrecipitations />} />
+          <Legend content={<CustomLegendPrecipitations />} />
           <Line yAxisId='left' type='monotone' dataKey='proba_precipitations' stroke='#8884d8' />
           <Line yAxisId='left' type='monotone' dataKey='couverture' stroke='#d88484' />
           <Line yAxisId='right' type='monotone' dataKey='pluie' stroke='#82ca9d' />
@@ -203,8 +325,8 @@ function Hourly(props) {
           <CartesianGrid strokeDasharray='3 3' />
           <XAxis dataKey='time' />
           <YAxis />
-          <Tooltip content={<CustomTooltip3 />} />
-          <Legend />
+          <Tooltip content={<CustomTooltipVents />} />
+          <Legend content={<CustomLegendVents />} />
           <Line type='monotone' dataKey='vitesse' stroke='#8884d8' dot={<WindDirectionIcon />} />
           <Line type='monotone' dataKey='rafales' stroke='#d88484' />
           {/* <Line type='monotone' dataKey='direction' stroke='#8884d8' dot={<WindDirectionIcon />} /> */}
