@@ -19,14 +19,26 @@ export default function useCurrent(props) {
     }
   }, [townInfo])
 
+  let CorrectedDirection = 0
+
   useEffect(() => {
     if (data && data.current) {
       const formattedDate = dateFormat(data.current.time)
+      // console.log(data.current)
+      // console.log('current.wind_direction_10m', data.current.wind_direction_10m)
+      if (current.wind_direction_10m <= 180) {
+        CorrectedDirection = parseInt(data.current.wind_direction_10m) + 180
+      } else {
+        CorrectedDirection = parseInt(data.current.wind_direction_10m) - 180
+      }
+      // console.log(CorrectedDirection)
+
       const { weather_code: code, is_day: nightDayCode, ...rest } = data.current
 
       setCurrent({
         ...rest,
         time: formattedDate,
+        wind_direction_10m: CorrectedDirection,
       })
       setWeatherCode(decryptWeatherCode({ code, nightDayCode }))
     }

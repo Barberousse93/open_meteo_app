@@ -43,7 +43,7 @@ export default function convertHourly(originalDatas) {
         couverture: cloud_cover[index],
         vitesse: wind_speed_10m[index],
         rafales: wind_gusts_10m[index],
-        direction: wind_direction_10m[index],
+        direction: wind_direction_10m[index] + 180,
       })
     })
     return convertedDatas

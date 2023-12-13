@@ -34,12 +34,12 @@ function Current(props) {
           Température : {current.temperature_2m}°C (ressenti : {current.apparent_temperature}°C)
         </div>
         <div>
-          Vent : {current.wind_speed_10m}kmh{' '}
+          Vent : {current.wind_speed_10m}km/h{' '}
           <span>
             <NavigationIcon sx={{ transform: `rotate(${current.wind_direction_10m}deg)`, ml: 1 }} />
           </span>
         </div>
-        <div>Rafales : {current.wind_gusts_10m}kmh</div>
+        <div>Rafales : {current.wind_gusts_10m}km/h</div>
         <div>
           {weatherCode.description}
           <img src={weatherCode.image} alt={weatherCode.description} />

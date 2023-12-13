@@ -13,6 +13,7 @@ import Hourly from './components/hourly.jsx'
 import SwitchTheme from './components/SwitchTheme.jsx'
 // import Loader from './components/loader.jsx'
 import { createContext } from 'react'
+import Daily from './components/daily.jsx'
 
 const mock = true
 
@@ -30,6 +31,7 @@ export default function App() {
           <TownSearch mock={mock} />
           <Current mock={mock} />
           <Hourly mock={mock} />
+          <Daily mock={mock} />
         </Town.Provider>
       </ThemeHandler>
     </>
