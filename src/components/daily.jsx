@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import useDaily from '../utils/Hooks/useDaily'
 import { Town } from '../App'
-import Loader from './loader'
+import Loader from './Loader'
 import Card from './Card'
 
 function Daily(props) {

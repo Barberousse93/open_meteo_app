@@ -8,7 +8,7 @@ import Select from '@mui/material/Select'
 import SearchIcon from '@mui/icons-material/Search'
 import ClearIcon from '@mui/icons-material/Clear'
 import useTownSearch from '../utils/Hooks/useTownSearch'
-import Loader from './loader'
+import Loader from './Loader'
 import { Town } from '../App'
 
 // import Current from './current'

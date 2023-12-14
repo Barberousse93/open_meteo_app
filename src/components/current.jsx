@@ -3,7 +3,7 @@ import useCurrent from '../utils/Hooks/useCurrent'
 import NavigationIcon from '@mui/icons-material/Navigation'
 import Link from '@mui/material/Link'
 import { Town } from '../App'
-import Loader from './loader'
+import Loader from './Loader'
 
 function Current(props) {
   const { townInfo } = useContext(Town)

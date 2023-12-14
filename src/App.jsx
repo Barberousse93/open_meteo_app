@@ -7,13 +7,13 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
-import Current from './components/current.jsx'
-import TownSearch from './components/townSearch.jsx'
-import Hourly from './components/hourly.jsx'
+import Current from './components/Current.jsx'
+import TownSearch from './components/TownSearch.jsx'
+import Hourly from './components/Hourly/hourly.jsx'
 import SwitchTheme from './components/SwitchTheme.jsx'
 // import Loader from './components/loader.jsx'
 import { createContext } from 'react'
-import Daily from './components/daily.jsx'
+import Daily from './components/Daily.jsx'
 
 const mock = true
 
