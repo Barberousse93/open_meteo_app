@@ -10,12 +10,14 @@ export default function useTownSearch(props) {
   const [ville, setVille] = useState('')
   const [changeTown, setChangeTown] = useState('')
   const [resultList, setResultList] = useState([])
+  const [selectIsVisible, setSelectIsVisible] = useState(false)
 
   useEffect(() => {
     if (searchVal) {
       fetchTownSearch()
       if (data && data.results) {
         setResultList(data.results)
+        setSelectIsVisible(true)
       }
     }
   }, [searchVal, data])
@@ -80,5 +82,6 @@ export default function useTownSearch(props) {
     handleChangeTown,
     changeTown,
     handleClickItem,
+    selectIsVisible,
   }
 }

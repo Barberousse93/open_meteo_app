@@ -1,14 +1,20 @@
 import {
   AppBar,
   Box,
-  Button,
   Container,
   Drawer,
   IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListSubheader,
   Toolbar,
   Typography,
 } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
+import LeftArrow from '@mui/icons-material/KeyboardArrowLeft'
+import StarIcon from '@mui/icons-material/Star'
 import React, { useState, useEffect, createContext } from 'react'
 import TownSearch from '../components/TownSearch.jsx'
 import Current from '../components/Current.jsx'
@@ -64,18 +70,40 @@ function LandingPage() {
             </Typography>
           </Toolbar>
         </AppBar>
-
+        {/* // ************************************* // */}
         <Drawer anchor='left' open={isOpen} variant='temporary'>
-          <h1 onClick={handleCloseDrawer} style={{ margin: '50px' }}>
-            Drawer
-          </h1>
-        </Drawer>
-        <Container>
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <IconButton
+              size='large'
+              edge='end'
+              color='inherit'
+              aria-label='close'
+              sx={{ mr: 2 }}
+              onClick={handleCloseDrawer}
+            >
+              <LeftArrow />
+            </IconButton>
+          </div>
+          <List
+            sx={{ width: '100%' }}
+            subheader={<ListSubheader edge='left'>Favori</ListSubheader>}
+          >
+            <ListItem>
+              <ListItemIcon>
+                <StarIcon style={{ color: '#ff0' }} />
+              </ListItemIcon>
+              <ListItemText primary={townInfo.selectedTown} />
+            </ListItem>
+          </List>
+          {/* // ************************************* // */}
           <TownSearch
             mock={mock}
             formIsVisible={formIsVisible}
             updateFormIsVisible={updateFormIsVisible}
+            syle={{ margin: '10px' }}
           />
+        </Drawer>
+        <Container>
           <Current mock={mock} />
           <Hourly mock={mock} />
           <Daily mock={mock} />
