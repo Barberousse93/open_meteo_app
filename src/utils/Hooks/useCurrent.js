@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react'
 import useFetch from './useFetch'
-import { Town } from '../../App'
+import { Town } from '../../components/LandingPage'
 
 import { dateFormat } from '../dateFormat'
 import decryptWeatherCode from '../decryptWeatherCode'

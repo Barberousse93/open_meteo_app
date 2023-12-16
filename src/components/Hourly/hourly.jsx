@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line, Customized } from 'recharts'
 import useHourly from '../../utils/Hooks/useHourly'
-import { Town } from '../../App'
+import { Town } from '../../components/LandingPage'
 import Loader from '../Loader'
 
 import {

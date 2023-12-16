@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import useFetch from './useFetch'
-import { Town } from '../../App'
+import { Town } from '../../components/LandingPage'
 
 export default function useTownSearch(props) {
   const { townInfo, setTownInfo } = useContext(Town)
@@ -19,12 +19,6 @@ export default function useTownSearch(props) {
       }
     }
   }, [searchVal, data])
-
-  // useEffect(() => {
-  //   if (data && data.results) {
-  //     setResultList(data.results)
-  //   }
-  // }, [data])
 
   function handleClick() {
     setSearchVal(townInfo.name)
@@ -48,6 +42,15 @@ export default function useTownSearch(props) {
   function handleChangeTown(e) {
     setChangeTown(e.target.value)
   }
+
+  useEffect(() => {
+    // Ecriture des données enregistrées dans le LocalStorage
+    const currentTownInfo = townInfo
+    if (currentTownInfo.selectedTown) {
+      localStorage.setItem('OpenMeteo', JSON.stringify(currentTownInfo))
+      props.updateFormIsVisible(false)
+    }
+  }, [townInfo])
 
   function handleClickItem(props) {
     setTownInfo((prevTownInfo) => ({

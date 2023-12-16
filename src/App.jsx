@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { CssBaseline } from '@mui/material'
 import ThemeHandler from './utils/Theming/ThemeProvider.jsx'
 import './App.css'
@@ -7,32 +7,49 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 
-import Current from './components/Current.jsx'
-import TownSearch from './components/TownSearch.jsx'
-import Hourly from './components/Hourly/hourly.jsx'
+import LandingPage from './components/LandingPage.jsx'
+
 import SwitchTheme from './components/SwitchTheme.jsx'
 // import Loader from './components/loader.jsx'
-import { createContext } from 'react'
-import Daily from './components/Daily.jsx'
+// import { createContext } from 'react'
 
-const mock = true
+// const mock = true
 
-const TownInfos = { name: '', latitude: '', longitude: '', selectedTown: '' }
-export const Town = createContext(TownInfos)
+// const TownInfos = { name: '', latitude: '', longitude: '', selectedTown: '' }
+// export const Town = createContext(TownInfos)
 
 export default function App() {
-  const [townInfo, setTownInfo] = useState(TownInfos)
+  // const [townInfo, setTownInfo] = useState(TownInfos)
+  // const [formIsVisible, setFormIsVisible] = useState(true)
+  // const updateFormIsVisible = (newState) => {
+  //   setFormIsVisible(newState)
+  // }
+
+  // useEffect(() => {
+  //   // Lecture des données enregistrées dans le LocalStorage
+  //   const storedTownInfo = JSON.parse(localStorage.getItem('OpenMeteo'))
+  //   if (storedTownInfo) {
+  //     setTownInfo(storedTownInfo)
+  //     setFormIsVisible(false)
+  //   }
+  // }, [])
+
   return (
     <>
       <ThemeHandler>
         <CssBaseline />
         <SwitchTheme />
-        <Town.Provider value={{ townInfo, setTownInfo }}>
-          <TownSearch mock={mock} />
+        {/* <Town.Provider value={{ townInfo, setTownInfo }}> */}
+        <LandingPage />
+        {/* <TownSearch
+            mock={mock}
+            formIsVisible={formIsVisible}
+            updateFormIsVisible={updateFormIsVisible}
+          />
           <Current mock={mock} />
           <Hourly mock={mock} />
-          <Daily mock={mock} />
-        </Town.Provider>
+          <Daily mock={mock} /> */}
+        {/* </Town.Provider> */}
       </ThemeHandler>
     </>
   )

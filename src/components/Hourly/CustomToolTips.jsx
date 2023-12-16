@@ -45,8 +45,8 @@ export const CustomTooltipVents = ({ active, payload }) => {
       <>
         <div style={{ background: '#444', opacity: '0.8', padding: '10px', borderRadius: '5px' }}>
           <div>Direction : {direction}</div>
-          <div style={{ color: '#d88484' }}>Force du vent : {payload[0].payload.vitesse}km/h</div>
-          <div style={{ color: '#8884d8' }}>Rafales : {payload[0].payload.rafales}km/h</div>
+          <div style={{ color: '#8884d8' }}>Force du vent : {payload[0].payload.vitesse}km/h</div>
+          <div style={{ color: '#d88484' }}>Rafales : {payload[0].payload.rafales}km/h</div>
         </div>
       </>
     )
