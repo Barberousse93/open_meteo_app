@@ -7,14 +7,15 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 import SearchIcon from '@mui/icons-material/Search'
 import ClearIcon from '@mui/icons-material/Clear'
+import Box from '@mui/material/Box'
 import useTownSearch from '../utils/Hooks/useTownSearch'
 import Loader from './Loader'
 import { Town } from '../components/LandingPage'
-import { Box } from '@mui/material'
 
 // import Current from './current'
 
 function TownSearch(props) {
+  // console.log('props TownSearch', props)
   const town = useContext(Town)
 
   const {
@@ -25,10 +26,12 @@ function TownSearch(props) {
     handleClick,
     handleChange,
     ville,
+    setVille,
     handleChangeTown,
     changeTown,
     handleClickItem,
     selectIsVisible,
+    historique,
   } = useTownSearch(props)
 
   if (isLoading) {
@@ -38,12 +41,12 @@ function TownSearch(props) {
     return <div>Error : {error}</div>
   }
   // console.log('context : ', town)
+
   return (
     props.formIsVisible && (
       <Box style={{ margin: '10px', display: 'flex', flexDirection: 'column' }}>
         <TextField
           style={{
-            // backgroundColor: 'rgba(255,255,255,0.1)',
             borderRadius: '5px',
           }}
           onChange={(e) => handleChange(e)}
