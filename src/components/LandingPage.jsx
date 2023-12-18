@@ -14,6 +14,8 @@ import Typography from '@mui/material/Typography'
 import MenuIcon from '@mui/icons-material/Menu'
 import LeftArrow from '@mui/icons-material/KeyboardArrowLeft'
 import StarIcon from '@mui/icons-material/Star'
+import Divider from '@mui/material/Divider'
+import ListItemButton from '@mui/material/ListItemButton'
 import React, { useState, useEffect, createContext } from 'react'
 import TownSearch from '../components/TownSearch.jsx'
 import Current from '../components/Current.jsx'
@@ -34,7 +36,13 @@ function LandingPage() {
     latitude: '',
     longitude: '',
   })
-  const [historique, setHistorique] = useState(localStorage.getItem('OpenMeteo_historique') || [])
+  const [historique, setHistorique] = useState([])
+
+  useEffect(() => {
+    // Lecture de l'historique au chargement si il esxite
+    if (JSON.parse(localStorage.getItem('OpenMeteo_historique')))
+      setHistorique(JSON.parse(localStorage.getItem('OpenMeteo_historique')))
+  }, [])
   // console.log('historique LandingPage', historique)
   const [formIsVisible, setFormIsVisible] = useState()
 
@@ -80,6 +88,18 @@ function LandingPage() {
   const handleClickAdd = () => {
     setFormIsVisible(!formIsVisible)
   }
+
+  const handleListItemClick = (itemID) => {
+    console.log(itemID)
+    const selectedTown = historique.find((item) => item.id === itemID)
+    console.log(selectedTown)
+    setTownInfo({
+      latitude: selectedTown.latitude,
+      longitude: selectedTown.longitude,
+      selectedTown: selectedTown.townName,
+    })
+    setIsOpen(false)
+  }
   return (
     <Town.Provider value={{ townInfo, setTownInfo }}>
       <Box>
@@ -100,8 +120,9 @@ function LandingPage() {
             </Typography>
           </Toolbar>
         </AppBar>
-        {/* // ************************************* // */}
+        {/* // ****************** Drawer ******************* // */}
         <Drawer anchor='left' open={isOpen} variant='temporary'>
+          {/* // ************** Chevron "retour" *************** // */}
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <IconButton
               size='large'
@@ -114,6 +135,8 @@ function LandingPage() {
               <LeftArrow />
             </IconButton>
           </div>
+          <Divider />
+          {/* // ****************** List "favori" ******************* // */}
           <List
             sx={{ width: '100%' }}
             subheader={<ListSubheader edge='left'>Favori</ListSubheader>}
@@ -125,7 +148,20 @@ function LandingPage() {
               <ListItemText primary={favoriteTown.name ? favoriteTown.name : null} />
             </ListItem>
           </List>
-          {/* // ************************************* // */}
+          <Divider />
+          {/* // ****************** List "Autres Lieu" ******************* // */}
+          <List
+            sx={{ width: '100%' }}
+            subheader={<ListSubheader edge='left'>Autres lieux...</ListSubheader>}
+          >
+            {historique.map((item) => (
+              <ListItemButton key={item.id} onClick={() => handleListItemClick(item.id)}>
+                <ListItemText primary={item.townName} />
+              </ListItemButton>
+            ))}
+          </List>
+          <Divider />
+          {/* // ************ Bouton "+" ********************* // */}
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <IconButton
               size='large'
