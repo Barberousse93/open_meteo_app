@@ -15,7 +15,6 @@ export const CustomTooltipTemperatures = ({ active, payload }) => {
 
 export const CustomTooltipPrecipitations = ({ active, payload }) => {
   if (active && payload && payload[0]) {
-    // console.log(payload[0].payload.pluie)
     const code = payload[0].payload.code
     const nightDayCode = payload[0].payload.nightDayCode
     const weatherCode = decryptWeatherCode({ code, nightDayCode })
@@ -39,7 +38,6 @@ export const CustomTooltipPrecipitations = ({ active, payload }) => {
 
 export const CustomTooltipVents = ({ active, payload }) => {
   if (active && payload && payload[0]) {
-    // console.log(payload[0].payload.pluie)
     const direction = convertirEnDirection(payload[0].payload.direction - 180)
     return (
       <>

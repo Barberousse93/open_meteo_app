@@ -20,17 +20,6 @@ export default function convertHourly(originalDatas) {
     const convertedDatas = []
 
     time.forEach((timestamp, index) => {
-      // const code = weather_code[index]
-      // const nightDayCode = is_day[index]
-      // const weatherCode = decryptWeatherCode({ code, nightDayCode })
-      // const weatherCode = decryptWeatherCode({
-      //   code: weather_code[index],
-      //   nightDayCode: is_day[index],
-      // })
-      // console.log('weather_code', weather_code[index])
-      // console.log('is_day', is_day[index])
-
-      // console.log('timestamp', timestamp)
       convertedDatas.push({
         time: timestamp.split('T')[1].substring(0, 5),
         temperature: temperature_2m[index],

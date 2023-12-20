@@ -24,26 +24,19 @@ import Hourly from '../components/Hourly/hourly.jsx'
 
 const mock = true
 
-const TownInfos = { name: '', latitude: '', longitude: '', selectedTown: '' }
+const TownInfos = {}
 export const Town = createContext(TownInfos)
+const HistoriqueArray = []
+export const Historique = createContext(HistoriqueArray)
+const Favorite = {}
+export const FavoriteTown = createContext(Favorite)
 
 function LandingPage() {
   const [isOpen, setIsOpen] = useState(false)
   const [townInfo, setTownInfo] = useState(TownInfos)
-  const [favoriteTown, setFavoriteTown] = useState({
-    id: '',
-    name: '',
-    latitude: '',
-    longitude: '',
-  })
-  const [historique, setHistorique] = useState([])
+  const [favoriteTownState, setFavoriteTown] = useState(Favorite)
+  const [historique, setHistorique] = useState(HistoriqueArray)
 
-  useEffect(() => {
-    // Lecture de l'historique au chargement si il esxite
-    if (JSON.parse(localStorage.getItem('OpenMeteo_historique')))
-      setHistorique(JSON.parse(localStorage.getItem('OpenMeteo_historique')))
-  }, [])
-  // console.log('historique LandingPage', historique)
   const [formIsVisible, setFormIsVisible] = useState()
 
   const handleSelectItem = () => {
@@ -53,10 +46,9 @@ function LandingPage() {
 
   useEffect(() => {
     // Lecture des données enregistrées dans le LocalStorage (historique)
-    const OldHistorique = JSON.parse(localStorage.getItem('OpenMeteo_historique'))
-    if (OldHistorique) {
-      setHistorique(OldHistorique)
-      // console.log('LandingPage historique', historique)
+    const storedHistorique = JSON.parse(localStorage.getItem('OpenMeteo_historique'))
+    if (storedHistorique) {
+      setHistorique(storedHistorique)
     }
   }, [])
 
@@ -90,9 +82,7 @@ function LandingPage() {
   }
 
   const handleListItemClick = (itemID) => {
-    console.log(itemID)
     const selectedTown = historique.find((item) => item.id === itemID)
-    console.log(selectedTown)
     setTownInfo({
       latitude: selectedTown.latitude,
       longitude: selectedTown.longitude,
@@ -102,91 +92,95 @@ function LandingPage() {
   }
   return (
     <Town.Provider value={{ townInfo, setTownInfo }}>
-      <Box>
-        <AppBar position='static'>
-          <Toolbar>
-            <IconButton
-              size='large'
-              edge='start'
-              color='inherit'
-              aria-label='menu'
-              sx={{ mr: 2 }}
-              onClick={handleOpenDrawer}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-              Open Météo
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        {/* // ****************** Drawer ******************* // */}
-        <Drawer anchor='left' open={isOpen} variant='temporary'>
-          {/* // ************** Chevron "retour" *************** // */}
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <IconButton
-              size='large'
-              edge='end'
-              color='inherit'
-              aria-label='close'
-              sx={{ mr: 2 }}
-              onClick={handleCloseDrawer}
-            >
-              <LeftArrow />
-            </IconButton>
-          </div>
-          <Divider />
-          {/* // ****************** List "favori" ******************* // */}
-          <List
-            sx={{ width: '100%' }}
-            subheader={<ListSubheader edge='left'>Favori</ListSubheader>}
-          >
-            <ListItem>
-              <ListItemIcon>
-                <StarIcon style={{ color: '#ff0' }} />
-              </ListItemIcon>
-              <ListItemText primary={favoriteTown.name ? favoriteTown.name : null} />
-            </ListItem>
-          </List>
-          <Divider />
-          {/* // ****************** List "Autres Lieu" ******************* // */}
-          <List
-            sx={{ width: '100%' }}
-            subheader={<ListSubheader edge='left'>Autres lieux...</ListSubheader>}
-          >
-            {historique.map((item) => (
-              <ListItemButton key={item.id} onClick={() => handleListItemClick(item.id)}>
-                <ListItemText primary={item.townName} />
-              </ListItemButton>
-            ))}
-          </List>
-          <Divider />
-          {/* // ************ Bouton "+" ********************* // */}
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <IconButton
-              size='large'
-              edge='end'
-              color='inherit'
-              aria-label='close'
-              sx={{ mr: 2 }}
-              onClick={handleClickAdd}
-            >
-              <AddTown />
-            </IconButton>
-          </div>
-          <TownSearch
-            mock={mock}
-            formIsVisible={formIsVisible}
-            handleSelectItem={handleSelectItem}
-            style={{ margin: '10px' }}
-          />
-        </Drawer>
-        <Container>
-          <Current mock={mock} />
-          <Hourly mock={mock} />
-          <Daily mock={mock} />
-        </Container>
-      </Box>
+      <Historique.Provider value={{ historique, setHistorique }}>
+        <FavoriteTown.Provider value={{ favoriteTownState, setFavoriteTown }}>
+          <Box>
+            <AppBar position='static'>
+              <Toolbar>
+                <IconButton
+                  size='large'
+                  edge='start'
+                  color='inherit'
+                  aria-label='menu'
+                  sx={{ mr: 2 }}
+                  onClick={handleOpenDrawer}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+                  Open Météo
+                </Typography>
+              </Toolbar>
+            </AppBar>
+            {/* // ****************** Drawer ******************* // */}
+            <Drawer anchor='left' open={isOpen} variant='temporary'>
+              {/* // ************** Chevron "retour" *************** // */}
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <IconButton
+                  size='large'
+                  edge='end'
+                  color='inherit'
+                  aria-label='close'
+                  sx={{ mr: 2 }}
+                  onClick={handleCloseDrawer}
+                >
+                  <LeftArrow />
+                </IconButton>
+              </div>
+              <Divider />
+              {/* // ****************** List "favori" ******************* // */}
+              <List
+                sx={{ width: '100%' }}
+                subheader={<ListSubheader edge='left'>Favori</ListSubheader>}
+              >
+                <ListItem>
+                  <ListItemIcon>
+                    <StarIcon style={{ color: '#ff0' }} />
+                  </ListItemIcon>
+                  <ListItemText primary={FavoriteTown.name ? FavoriteTown.name : null} />
+                </ListItem>
+              </List>
+              <Divider />
+              {/* // ****************** List "Autres Lieu" ******************* // */}
+              <List
+                sx={{ width: '100%' }}
+                subheader={<ListSubheader edge='left'>Autres lieux...</ListSubheader>}
+              >
+                {historique.map((item) => (
+                  <ListItemButton key={item.id} onClick={() => handleListItemClick(item.id)}>
+                    <ListItemText primary={item.townName} />
+                  </ListItemButton>
+                ))}
+              </List>
+              <Divider />
+              {/* // ************ Bouton "+" ********************* // */}
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <IconButton
+                  size='large'
+                  edge='end'
+                  color='inherit'
+                  aria-label='close'
+                  sx={{ mr: 2 }}
+                  onClick={handleClickAdd}
+                >
+                  <AddTown />
+                </IconButton>
+              </div>
+              <TownSearch
+                mock={mock}
+                formIsVisible={formIsVisible}
+                handleSelectItem={handleSelectItem}
+                style={{ margin: '10px' }}
+              />
+            </Drawer>
+            <Container>
+              <Current mock={mock} />
+              <Hourly mock={mock} />
+              <Daily mock={mock} />
+            </Container>
+          </Box>
+        </FavoriteTown.Provider>
+      </Historique.Provider>
     </Town.Provider>
   )
 }

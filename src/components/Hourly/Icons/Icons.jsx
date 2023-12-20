@@ -12,11 +12,8 @@ export const weatherIcon = (props) => {
 }
 
 export const WindDirectionIcon = (props) => {
-  // console.log(props.payload.direction)
   const { cx, cy, payload } = props
-  // console.log(props)
   const direction = parseInt(payload.direction)
-  // console.log(direction, cx)
   return (
     <g transform={`translate(${cx}, ${cy}) rotate(${direction})`}>
       <NavigationIcon

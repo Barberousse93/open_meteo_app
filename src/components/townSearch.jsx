@@ -10,14 +10,8 @@ import ClearIcon from '@mui/icons-material/Clear'
 import Box from '@mui/material/Box'
 import useTownSearch from '../utils/Hooks/useTownSearch'
 import Loader from './Loader'
-import { Town } from '../components/LandingPage'
-
-// import Current from './current'
 
 function TownSearch(props) {
-  // console.log('props TownSearch', props)
-  const town = useContext(Town)
-
   const {
     resultList,
     isLoading,
@@ -31,7 +25,7 @@ function TownSearch(props) {
     changeTown,
     handleClickItem,
     selectIsVisible,
-    historique,
+    // historique,
   } = useTownSearch(props)
 
   if (isLoading) {

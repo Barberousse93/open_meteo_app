@@ -1,12 +1,12 @@
 import { useContext, useEffect, useState } from 'react'
 import useFetch from './useFetch'
 import { Town } from '../../components/LandingPage'
+import { Historique } from '../../components/LandingPage'
 import { v4 as uuidv4 } from 'uuid'
 
 export default function useTownSearch(props) {
-  // console.log(props)
-
   const { townInfo, setTownInfo } = useContext(Town)
+  const { historique, setHistorique } = useContext(Historique)
   const [url, setUrl] = useState('')
   const { data, isLoading, error } = useFetch(url)
   const [searchVal, setSearchVal] = useState('')
@@ -14,15 +14,13 @@ export default function useTownSearch(props) {
   const [changeTown, setChangeTown] = useState('')
   const [resultList, setResultList] = useState([])
   const [selectIsVisible, setSelectIsVisible] = useState(false)
-  const [historique, setHistorique] = useState([])
 
-  // console.log('init historique', historique)
-  const [faireMAJ, setFaireAMJ] = useState(false)
+  const [faireMAJ, setFaireMAJ] = useState(false)
 
   useEffect(() => {
     // Lecture de l'historique au chargement si il esxite
-    if (JSON.parse(localStorage.getItem('OpenMeteo_historique')))
-      setHistorique(JSON.parse(localStorage.getItem('OpenMeteo_historique')))
+    const storedHistorique = JSON.parse(localStorage.getItem('OpenMeteo_historique'))
+    if (storedHistorique) setHistorique(storedHistorique)
   }, [])
 
   useEffect(() => {
@@ -70,13 +68,13 @@ export default function useTownSearch(props) {
 
   useEffect(() => {
     if (faireMAJ) {
-      // console.log('historique', historique)
+      console.log('FaireMAJ historique', historique)
       localStorage.setItem('OpenMeteo_historique', JSON.stringify(historique))
+      setHistorique(historique)
     }
   }, [faireMAJ])
 
   function handleClickItem(itemProps) {
-    // console.log('handleClickItem props', props)
     setTownInfo((prevTownInfo) => ({
       ...prevTownInfo,
       selectedTown: itemProps.name,
@@ -85,8 +83,6 @@ export default function useTownSearch(props) {
     }))
 
     props.handleSelectItem()
-
-    // console.log(historique)
     // Vérifier si la sélection existe déjà dans l'historique
     const selectionExists =
       historique &&
@@ -96,16 +92,11 @@ export default function useTownSearch(props) {
           item.latitude === itemProps.latitude &&
           item.longitude === itemProps.longitude,
       )
-    // console.log('selectionExists', selectionExists)
     // Si la sélection n'existe pas dans l'historique, l'ajouter
     if (!selectionExists) {
-      // console.log('coucou !')
       setHistorique((prevHistorique) => {
-        // Assurez-vous que prevHistorique est un tableau avant d'ajouter le nouvel élément
+        // Vérifier que prevHistorique est un tableau avant d'ajouter le nouvel élément
         const existingHistorique = prevHistorique ?? []
-
-        // Log pour vérifier la valeur de prevHistorique
-        // console.log('Before update - prevHistorique:', existingHistorique)
 
         const selectionExists = existingHistorique.some(
           (item) =>
@@ -124,18 +115,18 @@ export default function useTownSearch(props) {
           }
 
           const updatedHistorique = [...existingHistorique, newHistoriqueItem]
-          // console.log('After update - updatedHistorique:', updatedHistorique)
+
           return updatedHistorique
         }
         // RAZ Liste resultat
         setResultList([])
         // RAZ TextField
         setSearchVal('')
-        // Si la sélection existe déjà, retournez simplement le tableau existant
+        // Si la sélection existe déjà, retourner le tableau existant
         return existingHistorique
       })
 
-      setFaireAMJ(true)
+      setFaireMAJ(true)
     }
   }
 
