@@ -3,6 +3,7 @@ import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Drawer from '@mui/material/Drawer'
 import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
@@ -17,6 +18,7 @@ import StarIcon from '@mui/icons-material/Star'
 import Divider from '@mui/material/Divider'
 import ListItemButton from '@mui/material/ListItemButton'
 import React, { useState, useEffect, createContext } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import TownSearch from '../components/TownSearch.jsx'
 import Current from '../components/Current.jsx'
 import Daily from '../components/Daily.jsx'
@@ -90,6 +92,32 @@ function LandingPage() {
     })
     setIsOpen(false)
   }
+
+  const handleClickDelete = (itemID) => {
+    // Si l'item à supprimer correspond à la ville sélectionnée..
+    const townToDelete = historique.find((item) => item.id === itemID)
+    if (
+      townToDelete.latitude === townInfo.latitude &&
+      townToDelete.longitude === townInfo.longitude
+    ) {
+      // mise à blanc...
+      setTownInfo({})
+    }
+
+    const idASupprimer = historique.findIndex((item) => item.id === itemID)
+    if (idASupprimer !== -1) {
+      // l'ID existe dans le tableau
+      const newHistorique = [
+        ...historique.slice(0, idASupprimer),
+        ...historique.slice(idASupprimer + 1),
+      ]
+      // Mise à our du state
+      setHistorique(newHistorique)
+      // Mise à jour du localStorage
+      localStorage.setItem('OpenMeteo_historique', JSON.stringify(newHistorique))
+    }
+  }
+
   return (
     <Town.Provider value={{ townInfo, setTownInfo }}>
       <Historique.Provider value={{ historique, setHistorique }}>
@@ -128,7 +156,7 @@ function LandingPage() {
                 </IconButton>
               </div>
               <Divider />
-              {/* // ****************** List "favori" ******************* // */}
+              {/* // ****************** Liste "favori" ******************* // */}
               <List
                 sx={{ width: '100%' }}
                 subheader={<ListSubheader edge='left'>Favori</ListSubheader>}
@@ -147,9 +175,17 @@ function LandingPage() {
                 subheader={<ListSubheader edge='left'>Autres lieux...</ListSubheader>}
               >
                 {historique.map((item) => (
-                  <ListItemButton key={item.id} onClick={() => handleListItemClick(item.id)}>
-                    <ListItemText primary={item.townName} />
-                  </ListItemButton>
+                  <div key={item.id} style={{ display: 'flex' }}>
+                    <ListItemButton onClick={() => handleListItemClick(item.id)}>
+                      <ListItemText primary={item.townName} />
+                    </ListItemButton>
+
+                    <ListItemButton>
+                      {/* <ListItemIcon> */}
+                      <DeleteIcon onClick={() => handleClickDelete(item.id)} />
+                      {/* </ListItemIcon> */}
+                    </ListItemButton>
+                  </div>
                 ))}
               </List>
               <Divider />
