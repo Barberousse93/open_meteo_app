@@ -61,7 +61,7 @@ export default function useTownSearch(props) {
   useEffect(() => {
     // Ecriture des données enregistrées dans le LocalStorage
     const currentTownInfo = townInfo
-    if (currentTownInfo.selectedTown) {
+    if (currentTownInfo.townName) {
       localStorage.setItem('OpenMeteo', JSON.stringify(currentTownInfo))
     }
   }, [townInfo])
@@ -77,7 +77,7 @@ export default function useTownSearch(props) {
   function handleClickItem(itemProps) {
     setTownInfo((prevTownInfo) => ({
       ...prevTownInfo,
-      selectedTown: itemProps.name,
+      townName: itemProps.name,
       latitude: itemProps.latitude,
       longitude: itemProps.longitude,
     }))

@@ -14,7 +14,7 @@ export default function useCurrent(props) {
   const [weatherCode, setWeatherCode] = useState({ description: '', image: '' })
 
   useEffect(() => {
-    if (townInfo.selectedTown) {
+    if (townInfo.townName) {
       fetchCurrent()
     }
   }, [townInfo])

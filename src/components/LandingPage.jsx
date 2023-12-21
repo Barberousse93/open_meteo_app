@@ -59,17 +59,25 @@ function LandingPage() {
     const favoriteTownInfo = JSON.parse(localStorage.getItem('OpenMeteo_favorite'))
     if (favoriteTownInfo) {
       setFavoriteTown(favoriteTownInfo)
+      setTownInfo(favoriteTownInfo)
+    } else {
+      // Lecture des données enregistrées dans le LocalStorage (dernière selection)
+      const storedTownInfo = JSON.parse(localStorage.getItem('OpenMeteo'))
+      if (storedTownInfo) {
+        setTownInfo(storedTownInfo)
+        // setFormIsVisible(false)
+      }
     }
   }, [])
 
-  useEffect(() => {
-    // Lecture des données enregistrées dans le LocalStorage (dernière selection)
-    const storedTownInfo = JSON.parse(localStorage.getItem('OpenMeteo'))
-    if (storedTownInfo) {
-      setTownInfo(storedTownInfo)
-      setFormIsVisible(false)
-    }
-  }, [])
+  // useEffect(() => {
+  //   // Lecture des données enregistrées dans le LocalStorage (dernière selection)
+  //   const storedTownInfo = JSON.parse(localStorage.getItem('OpenMeteo'))
+  //   if (storedTownInfo) {
+  //     setTownInfo(storedTownInfo)
+  //     setFormIsVisible(false)
+  //   }
+  // }, [])
 
   const handleOpenDrawer = () => {
     setIsOpen(true)
@@ -84,11 +92,11 @@ function LandingPage() {
   }
 
   const handleListItemClick = (itemID) => {
-    const selectedTown = historique.find((item) => item.id === itemID)
+    const townName = historique.find((item) => item.id === itemID)
     setTownInfo({
-      latitude: selectedTown.latitude,
-      longitude: selectedTown.longitude,
-      selectedTown: selectedTown.townName,
+      latitude: townName.latitude,
+      longitude: townName.longitude,
+      townName: townName.townName,
     })
     setIsOpen(false)
   }
@@ -128,7 +136,7 @@ function LandingPage() {
     // Mise à jour du localStorage
     localStorage.setItem('OpenMeteo_favorite', JSON.stringify(itemToAddFavorite))
     setTownInfo({
-      selectedTown: itemToAddFavorite.townName,
+      townName: itemToAddFavorite.townName,
       latitude: itemToAddFavorite.latitude,
       longitude: itemToAddFavorite.longitude,
     })
@@ -137,7 +145,7 @@ function LandingPage() {
   const handleClickFavoriteItem = () => {
     // Click sur l'item "favori"
     setTownInfo({
-      selectedTown: favoriteTownState.townName,
+      townName: favoriteTownState.townName,
       latitude: favoriteTownState.latitude,
       longitude: favoriteTownState.logitude,
     })

@@ -18,7 +18,7 @@ function Daily(props) {
 
   return (
     townInfo &&
-    townInfo.selectedTown &&
+    townInfo.townName &&
     daily &&
     daily.time && ( // Utilisez la notation point pour accéder à daily.daily.time
       <>

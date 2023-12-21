@@ -19,7 +19,7 @@ export default function useHourly(props) {
   }, [hourly])
 
   useEffect(() => {
-    if (townInfo.selectedTown) {
+    if (townInfo.townName) {
       fetchHourly()
     }
   }, [townInfo])

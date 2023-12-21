@@ -32,7 +32,7 @@ function Hourly(props) {
 
   return (
     townInfo &&
-    townInfo.selectedTown &&
+    townInfo.townName &&
     hourly && (
       <>
         <LineChart

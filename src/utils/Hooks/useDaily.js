@@ -13,7 +13,7 @@ export default function useDaily(props) {
   //   if (daily) console.log('daily', daily)
 
   useEffect(() => {
-    if (townInfo.selectedTown) {
+    if (townInfo.townName) {
       fetchDaily()
     }
   }, [townInfo])
