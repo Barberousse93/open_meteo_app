@@ -18,7 +18,6 @@ import StarIcon from '@mui/icons-material/Star'
 import Divider from '@mui/material/Divider'
 import ListItemButton from '@mui/material/ListItemButton'
 import React, { useState, useEffect, createContext } from 'react'
-// import { v4 as uuidv4 } from 'uuid'
 import TownSearch from '../components/TownSearch.jsx'
 import Current from '../components/Current.jsx'
 import Daily from '../components/Daily.jsx'
@@ -55,6 +54,7 @@ function LandingPage() {
   }, [])
 
   useEffect(() => {
+    // Forçage du chargement du favori.
     // Lecture des données enregistrées dans le LocalStorage (Favori)
     const favoriteTownInfo = JSON.parse(localStorage.getItem('OpenMeteo_favorite'))
     if (favoriteTownInfo) {
@@ -65,19 +65,9 @@ function LandingPage() {
       const storedTownInfo = JSON.parse(localStorage.getItem('OpenMeteo'))
       if (storedTownInfo) {
         setTownInfo(storedTownInfo)
-        // setFormIsVisible(false)
       }
     }
   }, [])
-
-  // useEffect(() => {
-  //   // Lecture des données enregistrées dans le LocalStorage (dernière selection)
-  //   const storedTownInfo = JSON.parse(localStorage.getItem('OpenMeteo'))
-  //   if (storedTownInfo) {
-  //     setTownInfo(storedTownInfo)
-  //     setFormIsVisible(false)
-  //   }
-  // }, [])
 
   const handleOpenDrawer = () => {
     setIsOpen(true)
@@ -116,30 +106,39 @@ function LandingPage() {
     setIsOpen(false)
   }
 
-  const handleClickFavorite = (itemID) => {
-    // Click sur l'icone "étoile" pour ajouter dans les favoris
-
-    // const FavoriActuel = favoriteTownState
-    // console.log('FavoriActuel', FavoriActuel)
-
-    // retrait de l'historique
-    // DeleteFromHistorique(itemID)
-
-    // Affichage dans la liste "Favori"
+  const handleClickFavoriteIcon = (itemID) => {
+    // Recherche de l'élément dans l'historique
     const itemToAddFavorite = historique.find((item) => item.id === itemID)
+
+    // Supression du futur favori de l'historique
+    DeleteFromHistorique(itemID)
+
+    // Ajout du favori précédent à l'historique
+    setHistorique((prevHistorique) => {
+      const updatedHistorique = [...prevHistorique, favoriteTownState]
+      localStorage.setItem('OpenMeteo_historique', JSON.stringify(updatedHistorique))
+      return updatedHistorique
+    })
+
+    // Mise à jour du favori actuel
     setFavoriteTown({
       id: itemID,
       townName: itemToAddFavorite.townName,
       latitude: itemToAddFavorite.latitude,
       longitude: itemToAddFavorite.longitude,
     })
-    // Mise à jour du localStorage
+
+    // Mise à jour du localStorage pour les favoris
     localStorage.setItem('OpenMeteo_favorite', JSON.stringify(itemToAddFavorite))
+
+    // Mise à jour des informations de la ville sélectionnée
     setTownInfo({
       townName: itemToAddFavorite.townName,
       latitude: itemToAddFavorite.latitude,
       longitude: itemToAddFavorite.longitude,
     })
+
+    setIsOpen(false)
   }
 
   const handleClickFavoriteItem = () => {
@@ -153,7 +152,6 @@ function LandingPage() {
   }
 
   const DeleteFromHistorique = (itemID) => {
-    console.log('Delete ' + itemID)
     const idASupprimer = historique.findIndex((item) => item.id === itemID)
 
     if (idASupprimer !== -1) {
@@ -216,10 +214,12 @@ function LandingPage() {
                   <ListItemIcon>
                     <StarIcon style={{ color: '#ff0' }} />
                   </ListItemIcon>
-                  <ListItemText
-                    primary={favoriteTownState.townName ? favoriteTownState.townName : null}
-                    onClick={handleClickFavoriteItem}
-                  />
+                  <ListItemButton>
+                    <ListItemText
+                      primary={favoriteTownState.townName ? favoriteTownState.townName : null}
+                      onClick={handleClickFavoriteItem}
+                    />
+                  </ListItemButton>
                 </ListItem>
               </List>
               <Divider />
@@ -232,7 +232,7 @@ function LandingPage() {
                   <div key={item.id} style={{ display: 'flex' }}>
                     <ListItemButton>
                       <StarIcon
-                        onClick={() => handleClickFavorite(item.id)}
+                        onClick={() => handleClickFavoriteIcon(item.id)}
                         style={{ color: 'GrayText' }}
                       />
                     </ListItemButton>
