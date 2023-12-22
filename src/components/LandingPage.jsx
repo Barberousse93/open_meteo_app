@@ -1,23 +1,27 @@
+// Composants MUI
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Drawer from '@mui/material/Drawer'
-import IconButton from '@mui/material/IconButton'
-import DeleteIcon from '@mui/icons-material/Delete'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import ListSubheader from '@mui/material/ListSubheader'
-import AddTown from '@mui/icons-material/AddCircle'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
+import ListItemButton from '@mui/material/ListItemButton'
+// Icones MUI
+import IconButton from '@mui/material/IconButton'
+import DeleteIcon from '@mui/icons-material/Delete'
+import AddTown from '@mui/icons-material/AddCircle'
 import MenuIcon from '@mui/icons-material/Menu'
 import LeftArrow from '@mui/icons-material/KeyboardArrowLeft'
 import StarIcon from '@mui/icons-material/Star'
 import Divider from '@mui/material/Divider'
-import ListItemButton from '@mui/material/ListItemButton'
+// Composants REACT
 import React, { useState, useEffect, createContext } from 'react'
+// Composants internes
 import TownSearch from '../components/TownSearch.jsx'
 import Current from '../components/Current.jsx'
 import Daily from '../components/Daily.jsx'
@@ -33,17 +37,12 @@ const Favorite = {}
 export const FavoriteTown = createContext(Favorite)
 
 function LandingPage() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [townInfo, setTownInfo] = useState(TownInfos)
-  const [favoriteTownState, setFavoriteTown] = useState(Favorite)
-  const [historique, setHistorique] = useState(HistoriqueArray)
-
-  const [formIsVisible, setFormIsVisible] = useState()
-
-  const handleSelectItem = () => {
-    setFormIsVisible(false) // Fermer le formulaire une fois un item sélectionné
-    setIsOpen(false)
-  }
+  // initialisation des states
+  const [isOpen, setIsOpen] = useState(false) // gestion du Drawer
+  const [formIsVisible, setFormIsVisible] = useState() // Gestion du formulaire de recherche
+  const [townInfo, setTownInfo] = useState(TownInfos) // Ville affichée
+  const [favoriteTownState, setFavoriteTown] = useState(Favorite) // Favori
+  const [historique, setHistorique] = useState(HistoriqueArray) // Histrique
 
   useEffect(() => {
     // Lecture des données enregistrées dans le LocalStorage (historique)
@@ -68,6 +67,11 @@ function LandingPage() {
       }
     }
   }, [])
+
+  const handleSelectItem = () => {
+    setFormIsVisible(false) // Fermer le formulaire une fois un item sélectionné
+    setIsOpen(false)
+  }
 
   const handleOpenDrawer = () => {
     setIsOpen(true)
@@ -146,7 +150,7 @@ function LandingPage() {
     setTownInfo({
       townName: favoriteTownState.townName,
       latitude: favoriteTownState.latitude,
-      longitude: favoriteTownState.logitude,
+      longitude: favoriteTownState.longitude,
     })
     setIsOpen(false)
   }
