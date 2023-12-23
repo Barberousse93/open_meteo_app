@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import useFetch from './useFetch'
-import { Town } from '../../components/LandingPage'
-import { Historique } from '../../components/LandingPage'
+// import { Town } from '../Hooks/useLandingPage'
+import { Historique, Town } from '../Hooks/useLandingPage'
 import { v4 as uuidv4 } from 'uuid'
 
 export default function useTownSearch(props) {

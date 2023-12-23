@@ -1,7 +1,7 @@
 // https://api.open-meteo.com/v1/forecast?latitude=48.5115&longitude=3.5601&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,rain_sum,snowfall_sum,precipitation_hours,wind_speed_10m_max,wind_gusts_10m_max,wind_direction_10m_dominant&timezone=auto&past_days=1
 import { useEffect, useState, useContext } from 'react'
 import useFetch from './useFetch'
-import { Town } from '../../components/LandingPage'
+import { Town } from '../Hooks/useLandingPage'
 
 export default function useDaily(props) {
   const { townInfo } = useContext(Town)

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import useDaily from '../utils/Hooks/useDaily'
-import { Town } from '../components/LandingPage'
+import { Town } from '../utils/Hooks/useLandingPage'
 import Loader from './Loader'
 import Card from './Card'
 

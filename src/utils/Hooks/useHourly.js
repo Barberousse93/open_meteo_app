@@ -1,7 +1,7 @@
 // https://api.open-meteo.com/v1/forecast?latitude=48.5115&longitude=3.5601&hourly=temperature_2m,apparent_temperature,precipitation_probability,rain,showers,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day&timezone=auto&past_days=1&past_hours=1&forecast_hours=24
 import { useEffect, useState, useContext } from 'react'
 import useFetch from './useFetch'
-import { Town } from '../../components/LandingPage'
+import { Town } from '../Hooks/useLandingPage'
 import convertHourly from '../../utils/convertHourly'
 
 export default function useHourly(props) {

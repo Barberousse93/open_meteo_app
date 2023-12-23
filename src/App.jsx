@@ -9,14 +9,11 @@ import '@fontsource/roboto/700.css'
 
 import LandingPage from './components/LandingPage.jsx'
 
-// import SwitchTheme from './components/SwitchTheme.jsx'
-
 export default function App() {
   return (
     <>
       <ThemeHandler>
         <CssBaseline />
-        {/* <SwitchTheme /> */}
         <LandingPage />
       </ThemeHandler>
     </>

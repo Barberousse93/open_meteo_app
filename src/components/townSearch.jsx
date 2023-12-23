@@ -34,7 +34,6 @@ function TownSearch(props) {
   if (error) {
     return <div>Error : {error}</div>
   }
-  // console.log('context : ', town)
 
   return (
     props.formIsVisible && (
