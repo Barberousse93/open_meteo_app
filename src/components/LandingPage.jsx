@@ -11,6 +11,7 @@ import ListSubheader from '@mui/material/ListSubheader'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import ListItemButton from '@mui/material/ListItemButton'
+// import { makeStyles } from '@mui/material'
 // Icones MUI
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -26,6 +27,8 @@ import TownSearch from '../components/TownSearch.jsx'
 import Current from '../components/Current.jsx'
 import Daily from '../components/Daily.jsx'
 import Hourly from '../components/Hourly/hourly.jsx'
+import SwitchTheme from './SwitchTheme.jsx'
+// import useLandingPage from '../utils/Hooks/useLandingPage.js'
 
 const mock = true
 
@@ -176,7 +179,7 @@ function LandingPage() {
       <Historique.Provider value={{ historique, setHistorique }}>
         <FavoriteTown.Provider value={{ favoriteTownState, setFavoriteTown }}>
           <Box>
-            <AppBar position='static'>
+            <AppBar position='fixed'>
               <Toolbar>
                 <IconButton
                   size='large'
@@ -188,7 +191,7 @@ function LandingPage() {
                 >
                   <MenuIcon />
                 </IconButton>
-                <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+                <Typography variant='h6' component='h1' sx={{ flexGrow: 1 }}>
                   Open Météo
                 </Typography>
               </Toolbar>
@@ -196,7 +199,14 @@ function LandingPage() {
             {/* // ****************** Drawer ******************* // */}
             <Drawer anchor='left' open={isOpen} variant='temporary'>
               {/* // ************** Chevron "retour" *************** // */}
-              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  // justifyContent: 'flex-end',
+                  alignItems: 'flex-end',
+                }}
+              >
                 <IconButton
                   size='large'
                   edge='end'
@@ -207,6 +217,8 @@ function LandingPage() {
                 >
                   <LeftArrow />
                 </IconButton>
+                <Divider />
+                <SwitchTheme />
               </div>
               <Divider />
               {/* // ****************** Liste "favori" ******************* // */}

@@ -11,11 +11,18 @@ function SwitchTheme() {
 
   const { isDark, toggleTheme } = useContext(ThemeContext)
   return (
-    <>
+    <div
+      style={{
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <Switch name='switchTheme' checked={isDark} onChange={toggleTheme} />
       <label htmlFor='switchTheme'> Theme&nbsp;</label> {isDark ? 'Clair' : 'Sombre'}
       <Button onClick={handleReset}>Reset</Button>
-    </>
+    </div>
   )
 }
 

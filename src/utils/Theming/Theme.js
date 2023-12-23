@@ -2,13 +2,13 @@ import { createTheme } from '@mui/material'
 
 const LOCAL_STORAGE_KEY = 'isDark'
 
-// const baseTheme = createTheme({
-//   typography: {
-//     fontFamily: "'Work Sans', sans-serif",
-//     fontSize: 14,
-//     fontFamilySecondary: "'Roboto Condensed', sans-serif"
-//   }
-// })
+const baseTheme = createTheme({
+  typography: {
+    fontFamily: "'Work Sans', sans-serif",
+    fontSize: 14,
+    fontFamilySecondary: "'Roboto Condensed', sans-serif",
+  },
+})
 
 const DARK_THEME = createTheme({
   // ...baseTheme,
@@ -34,25 +34,25 @@ const DARK_THEME = createTheme({
 })
 
 const LIGHT_THEME = createTheme({
-  //   ...baseTheme,
-  // palette: {
-  //   type: 'light',
-  //   primary: {
-  //     main: '#586F05'
-  //   },
-  //   secondary: {
-  //     main: '#93AD18'
-  //   },
-  //   background: {
-  //     default: '#fff'
-  //   },
-  //   text: {
-  //     primary: '#343531'
-  //   }
-  // }
+  ...baseTheme,
   palette: {
-    mode: 'light',
+    type: 'light',
+    primary: {
+      main: '#62a5f3',
+    },
+    secondary: {
+      main: '#8fc0fa',
+    },
+    background: {
+      default: '#83bafb',
+    },
+    text: {
+      primary: '#fff',
+    },
   },
+  // palette: {
+  //   mode: 'light',
+  // },
 })
 
 export { DARK_THEME, LIGHT_THEME, LOCAL_STORAGE_KEY }
