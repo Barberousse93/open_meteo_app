@@ -34,25 +34,25 @@ const DARK_THEME = createTheme({
 })
 
 const LIGHT_THEME = createTheme({
-  ...baseTheme,
-  palette: {
-    type: 'light',
-    primary: {
-      main: '#62a5f3',
-    },
-    secondary: {
-      main: '#8fc0fa',
-    },
-    background: {
-      default: '#83bafb',
-    },
-    text: {
-      primary: '#fff',
-    },
-  },
+  // ...baseTheme,
   // palette: {
-  //   mode: 'light',
+  //   type: 'light',
+  //   primary: {
+  //     main: '#62a5f3',
+  //   },
+  //   secondary: {
+  //     main: '#8fc0fa',
+  //   },
+  //   background: {
+  //     default: '#83bafb',
+  //   },
+  //   text: {
+  //     primary: '#fff',
+  //   },
   // },
+  palette: {
+    mode: 'light',
+  },
 })
 
 export { DARK_THEME, LIGHT_THEME, LOCAL_STORAGE_KEY }
