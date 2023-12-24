@@ -20,6 +20,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import LeftArrow from '@mui/icons-material/KeyboardArrowLeft'
 import StarIcon from '@mui/icons-material/Star'
 import Divider from '@mui/material/Divider'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 // Composants REACT
 import React, { useState, useEffect, createContext } from 'react'
 // Composants internes
@@ -32,8 +33,10 @@ import useLandingPage from '../utils/Hooks/useLandingPage.js'
 import { Historique } from '../utils/Hooks/useLandingPage.js'
 import { FavoriteTown } from '../utils/Hooks/useLandingPage.js'
 import { Town } from '../utils/Hooks/useLandingPage.js'
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 
-const mock = true
+const mock = process.env.NODE_ENV === 'development'
+console.log(mock)
 
 export default function LandingPage() {
   const {
@@ -170,8 +173,23 @@ export default function LandingPage() {
             {/* // ****************** Resultats ******************* // */}
             <Container>
               <Current mock={mock} />
-              <Hourly mock={mock} />
-              <Daily mock={mock} />
+              <Accordion>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>Prévisions horaires</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Hourly mock={mock} />
+                </AccordionDetails>
+              </Accordion>
+              <Divider />
+              <Accordion>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>Prévisions 7 prochains jours</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Daily mock={mock} />
+                </AccordionDetails>
+              </Accordion>
             </Container>
           </Box>
         </FavoriteTown.Provider>
