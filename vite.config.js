@@ -10,5 +10,5 @@ export default defineConfig({
   build: {
     outDir: 'dist',
   },
-  base: '/open_meteo_app/',
+  base: '/',
 })
