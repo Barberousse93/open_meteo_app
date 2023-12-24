@@ -35,11 +35,12 @@ import { FavoriteTown } from '../utils/Hooks/useLandingPage.js'
 import { Town } from '../utils/Hooks/useLandingPage.js'
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 
-// const mock = true
-// const mock = process.env.NODE_ENV === 'development'
-
 export default function LandingPage() {
-  const mock = false
+  // const mock = false
+  const environnement = import.meta.env.MODE
+  const mock = environnement === 'development'
+
+  console.log(environnement)
   const {
     isOpen,
     handleOpenDrawer,
