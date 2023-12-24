@@ -35,13 +35,12 @@ import { FavoriteTown } from '../utils/Hooks/useLandingPage.js'
 import { Town } from '../utils/Hooks/useLandingPage.js'
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 
-// const mock = true
-const mock = process.env.NODE_ENV === 'development'
+const mock = true
+// const mock = process.env.NODE_ENV === 'development'
 
 export default function LandingPage() {
   const {
     isOpen,
-    setIsOpen,
     handleOpenDrawer,
     handleCloseDrawer,
     handleClickAdd,
@@ -64,7 +63,7 @@ export default function LandingPage() {
       <Historique.Provider value={{ historique, setHistorique }}>
         <FavoriteTown.Provider value={{ favoriteTownState, setFavoriteTown }}>
           <Box>
-            <AppBar position='fixed'>
+            <AppBar position='sicky'>
               <Toolbar>
                 <IconButton
                   size='large'
@@ -171,26 +170,28 @@ export default function LandingPage() {
               />
             </Drawer>
             {/* // ****************** Resultats ******************* // */}
-            <Container>
-              <Current mock={mock} />
-              <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography>Prévisions horaires</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Hourly mock={mock} />
-                </AccordionDetails>
-              </Accordion>
-              <Divider />
-              <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography>Prévisions 7 prochains jours</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Daily mock={mock} />
-                </AccordionDetails>
-              </Accordion>
-            </Container>
+            {townInfo && townInfo.townName && (
+              <Container>
+                <Current mock={mock} />
+                <Accordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography>Prévisions horaires</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Hourly mock={mock} />
+                  </AccordionDetails>
+                </Accordion>
+                <Divider />
+                <Accordion>
+                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <Typography>Prévisions 7 prochains jours</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Daily mock={mock} />
+                  </AccordionDetails>
+                </Accordion>
+              </Container>
+            )}
           </Box>
         </FavoriteTown.Provider>
       </Historique.Provider>

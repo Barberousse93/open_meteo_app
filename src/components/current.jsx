@@ -20,7 +20,6 @@ function Current(props) {
     townInfo &&
     townInfo.townName && (
       <>
-        <div> Données mockée ? : {props.mock ? 'true' : 'false'}</div>
         <h1>{townInfo.townName} </h1>
         <Link
           href={`https://www.google.fr/maps/@${townInfo.latitude},${townInfo.longitude},13z?entry=ttu`}
