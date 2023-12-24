@@ -24,7 +24,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 // Composants REACT
 import React, { useState, useEffect, createContext } from 'react'
 // Composants internes
-import TownSearch from '../components/TownSearch.jsx'
+import TownSearch from 'src/components/TownSearch.jsx'
 import Current from '../components/Current.jsx'
 import Daily from '../components/Daily.jsx'
 import Hourly from '../components/Hourly/hourly.jsx'
@@ -41,7 +41,6 @@ console.log(mock)
 export default function LandingPage() {
   const {
     isOpen,
-    setIsOpen,
     handleOpenDrawer,
     handleCloseDrawer,
     handleClickAdd,

@@ -144,7 +144,6 @@ export default function useLandingPage() {
 
   return {
     isOpen,
-    setIsOpen,
     handleOpenDrawer,
     handleCloseDrawer,
     handleClickAdd,
