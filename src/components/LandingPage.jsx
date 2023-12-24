@@ -21,10 +21,12 @@ import LeftArrow from '@mui/icons-material/KeyboardArrowLeft'
 import StarIcon from '@mui/icons-material/Star'
 import Divider from '@mui/material/Divider'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+// Composants REACT
+import React, { useState, useEffect, createContext } from 'react'
 // Composants internes
 import TownSearch from '../components/TownSearch.jsx'
-import Current from './Current.jsx'
-import Daily from './Daily.jsx'
+import Current from '../components/Current.jsx'
+import Daily from '../components/Daily.jsx'
 import Hourly from '../components/Hourly/hourly.jsx'
 import SwitchTheme from './SwitchTheme.jsx'
 import useLandingPage from '../utils/Hooks/useLandingPage.js'
@@ -33,12 +35,12 @@ import { FavoriteTown } from '../utils/Hooks/useLandingPage.js'
 import { Town } from '../utils/Hooks/useLandingPage.js'
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 
-const mock = process.env.NODE_ENV === 'development'
-console.log(mock)
+const mock = true
 
 export default function LandingPage() {
   const {
     isOpen,
+    setIsOpen,
     handleOpenDrawer,
     handleCloseDrawer,
     handleClickAdd,
