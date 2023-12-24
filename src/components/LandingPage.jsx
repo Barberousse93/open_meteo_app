@@ -65,7 +65,7 @@ export default function LandingPage() {
       <Historique.Provider value={{ historique, setHistorique }}>
         <FavoriteTown.Provider value={{ favoriteTownState, setFavoriteTown }}>
           <Box>
-            <AppBar position='sicky'>
+            <AppBar position='fixed'>
               <Toolbar>
                 <IconButton
                   size='large'
@@ -173,7 +173,7 @@ export default function LandingPage() {
             </Drawer>
             {/* // ****************** Resultats ******************* // */}
             {townInfo && townInfo.townName && (
-              <Container>
+              <Container style={{ top: '50px', position: 'relative' }}>
                 <Current mock={mock} />
                 <Accordion>
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
