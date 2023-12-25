@@ -14,12 +14,13 @@ export default function useCurrent(props) {
 
   useEffect(() => {
     updateFavicon(weatherCode.image)
-  }, [weatherCode.image])
+    document.title = townInfo.townName.concat(' - ', weatherCode.description)
+  }, [weatherCode.image, townInfo.townName])
 
   useEffect(() => {
     if (townInfo.townName) {
       fetchCurrent()
-      document.title = townInfo.townName
+      // document.title = townInfo.townName
     }
   }, [townInfo])
 
