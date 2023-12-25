@@ -1,7 +1,6 @@
 import { useEffect, useState, useContext } from 'react'
 import useFetch from './useFetch'
 import { Town } from '../Hooks/useLandingPage'
-
 import { dateFormat } from '../dateFormat'
 import decryptWeatherCode from '../decryptWeatherCode'
 
@@ -14,11 +13,8 @@ export default function useCurrent(props) {
   const [weatherCode, setWeatherCode] = useState({ description: '', image: '' })
 
   useEffect(() => {
-    let favicon = document.querySelector('link[rel="icon"]') || document.createElement('link')
-    favicon.href = weatherCode.image
-    favicon.rel = 'icon'
-    document.head.appendChild(favicon)
-  }, [weatherCode])
+    updateFavicon(weatherCode.image)
+  }, [weatherCode.image])
 
   useEffect(() => {
     if (townInfo.townName) {
@@ -55,6 +51,14 @@ export default function useCurrent(props) {
 
     setUrl(apiUrl)
   }
+
+  function updateFavicon(iconUrl) {
+    let favicon = document.querySelector('link[rel="icon"]') || document.createElement('link')
+    favicon.href = iconUrl
+    favicon.rel = 'icon'
+    document.head.appendChild(favicon)
+  }
+
   return {
     isLoading,
     error,
