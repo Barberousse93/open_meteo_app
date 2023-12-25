@@ -3,6 +3,7 @@ import useDaily from '../utils/Hooks/useDaily'
 import { Town } from '../utils/Hooks/useLandingPage'
 import Loader from './Loader'
 import Card from './Card'
+import { Box } from '@mui/material'
 
 function Daily(props) {
   const { townInfo } = useContext(Town)
@@ -20,9 +21,8 @@ function Daily(props) {
     townInfo &&
     townInfo.townName &&
     daily &&
-    daily.time && ( // Utilisez la notation point pour accéder à daily.daily.time
+    daily.time && (
       <>
-        <div>Daily</div>
         {daily.time.map((day, index) => (
           <Card
             key={index}

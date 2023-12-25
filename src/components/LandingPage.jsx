@@ -40,7 +40,6 @@ export default function LandingPage() {
   const environnement = import.meta.env.MODE
   const mock = environnement === 'development'
 
-  console.log(environnement)
   const {
     isOpen,
     handleOpenDrawer,
