@@ -89,11 +89,13 @@ export default function useLandingPage() {
     DeleteFromHistorique(itemID)
 
     // Ajout du favori précédent à l'historique
-    setHistorique((prevHistorique) => {
-      const updatedHistorique = [...prevHistorique, favoriteTownState]
-      localStorage.setItem('OpenMeteo_historique', JSON.stringify(updatedHistorique))
-      return updatedHistorique
-    })
+    if (favoriteTownState && favoriteTownState.townName) {
+      setHistorique((prevHistorique) => {
+        const updatedHistorique = [...prevHistorique, favoriteTownState]
+        localStorage.setItem('OpenMeteo_historique', JSON.stringify(updatedHistorique))
+        return updatedHistorique
+      })
+    }
 
     // Mise à jour du favori actuel
     setFavoriteTown({
