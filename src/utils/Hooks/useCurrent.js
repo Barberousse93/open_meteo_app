@@ -56,6 +56,7 @@ export default function useCurrent(props) {
     let favicon = document.querySelector('link[rel="icon"]') || document.createElement('link')
     favicon.href = iconUrl
     favicon.rel = 'icon'
+    favicon.type = 'image/png'
     document.head.appendChild(favicon)
   }
 
