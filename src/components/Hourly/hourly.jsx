@@ -35,7 +35,7 @@ function Hourly(props) {
     townInfo &&
     townInfo.townName &&
     hourly && (
-      <Box style={{ overflow: 'auto' }}>
+      <Box style={{ overflowX: 'auto' }}>
         <LineChart
           width={1024}
           height={250}
