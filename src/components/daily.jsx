@@ -3,7 +3,7 @@ import useDaily from '../utils/Hooks/useDaily'
 import { Town } from '../utils/Hooks/useLandingPage'
 import Loader from './Loader'
 import Card from './Card'
-import { Box } from '@mui/material'
+import { Box, Paper } from '@mui/material'
 
 function Daily(props) {
   const { townInfo } = useContext(Town)
@@ -22,7 +22,7 @@ function Daily(props) {
     townInfo.townName &&
     daily &&
     daily.time && (
-      <>
+      <Paper>
         {daily.time.map((day, index) => (
           <Card
             key={index}
@@ -42,7 +42,7 @@ function Daily(props) {
             }}
           />
         ))}
-      </>
+      </Paper>
     )
   )
 }

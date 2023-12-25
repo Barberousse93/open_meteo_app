@@ -4,6 +4,7 @@ import NavigationIcon from '@mui/icons-material/Navigation'
 import Link from '@mui/material/Link'
 import { Town } from '../utils/Hooks/useLandingPage'
 import Loader from './Loader'
+import { Paper } from '@mui/material'
 
 function Current(props) {
   const { townInfo } = useContext(Town)
@@ -19,7 +20,8 @@ function Current(props) {
   return (
     townInfo &&
     townInfo.townName && (
-      <>
+      <Paper sx={{ padding: '20px' }}>
+        <p>Actuellement</p>
         <h1>{townInfo.townName} </h1>
         <Link
           href={`https://www.google.fr/maps/@${townInfo.latitude},${townInfo.longitude},13z?entry=ttu`}
@@ -43,7 +45,7 @@ function Current(props) {
           {weatherCode.description}
           <img src={weatherCode.image} alt={weatherCode.description} />
         </div>
-      </>
+      </Paper>
     )
   )
 }

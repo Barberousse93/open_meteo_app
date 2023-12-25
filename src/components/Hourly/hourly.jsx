@@ -17,7 +17,7 @@ import {
 } from './CustomLegends'
 
 import { weatherIcon, WindDirectionIcon, HotFreezeIcon } from './Icons/Icons'
-import { Box } from '@mui/material'
+import { Box, Paper } from '@mui/material'
 
 function Hourly(props) {
   const { townInfo } = useContext(Town)
@@ -35,7 +35,7 @@ function Hourly(props) {
     townInfo &&
     townInfo.townName &&
     hourly && (
-      <Box style={{ overflowX: 'auto' }}>
+      <Paper style={{ overflow: 'auto hidden' }}>
         <LineChart
           width={1024}
           height={250}
@@ -96,7 +96,7 @@ function Hourly(props) {
           <Line type='monotone' dataKey='rafales' stroke='#d88484' />
           {/* <Line type='monotone' dataKey='direction' stroke='#8884d8' dot={<WindDirectionIcon />} /> */}
         </LineChart>
-      </Box>
+      </Paper>
     )
   )
 }

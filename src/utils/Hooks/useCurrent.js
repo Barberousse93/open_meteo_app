@@ -14,8 +14,16 @@ export default function useCurrent(props) {
   const [weatherCode, setWeatherCode] = useState({ description: '', image: '' })
 
   useEffect(() => {
+    let favicon = document.querySelector('link[rel="icon"]') || document.createElement('link')
+    favicon.href = weatherCode.image
+    favicon.rel = 'icon'
+    document.head.appendChild(favicon)
+  }, [weatherCode])
+
+  useEffect(() => {
     if (townInfo.townName) {
       fetchCurrent()
+      document.title = townInfo.townName
     }
   }, [townInfo])
 

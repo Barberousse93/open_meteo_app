@@ -49,12 +49,12 @@ export default function Card(datas) {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-around',
-        border: '1px solid black',
-        borderRadius: '10px',
+        marginBottom: '10px',
+        // border: '1px solid black',
+        // borderRadius: '10px',
       }}
     >
       <div>{dateAAfficher}</div>
-      {/* <div>{weather.description}</div> */}
       <img src={weather.image} />
       <div>
         <Thermometre /> {cardDatas.temperatureMin}°C / {cardDatas.temperatureMax}°C {'  '}
