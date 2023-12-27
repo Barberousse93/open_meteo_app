@@ -85,12 +85,7 @@ export default function LandingPage() {
               </Toolbar>
             </AppBar>
             {/* // ****************** Drawer ******************* // */}
-            <Drawer
-              anchor='left'
-              open={isOpen}
-              variant='temporary'
-              style={{ backgroundColor: theme.palette.primary.light }}
-            >
+            <Drawer anchor='left' open={isOpen} variant='temporary'>
               {/* // ************** Chevron "retour" *************** // */}
               <div
                 style={{
