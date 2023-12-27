@@ -1,11 +1,13 @@
 import React, { useContext } from 'react'
+import { useTheme } from '@emotion/react'
 import useDaily from '../utils/Hooks/useDaily'
 import { Town } from '../utils/Hooks/useLandingPage'
 import Loader from './Loader'
 import Card from './Card'
-import { Box, Paper } from '@mui/material'
+import Paper from '@mui/material/Paper'
 
 function Daily(props) {
+  const theme = useTheme()
   const { townInfo } = useContext(Town)
   const { isLoading, error, daily } = useDaily(props)
 
@@ -22,7 +24,7 @@ function Daily(props) {
     townInfo.townName &&
     daily &&
     daily.time && (
-      <Paper>
+      <Paper style={{ overflow: 'auto hidden', backgroundColor: theme.palette.primary.main }}>
         {daily.time.map((day, index) => (
           <Card
             key={index}

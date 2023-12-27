@@ -34,11 +34,14 @@ import { Historique } from '../utils/Hooks/useLandingPage.js'
 import { FavoriteTown } from '../utils/Hooks/useLandingPage.js'
 import { Town } from '../utils/Hooks/useLandingPage.js'
 import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
+import { useTheme } from '@emotion/react'
 
 export default function LandingPage() {
   // const mock = false
   const environnement = import.meta.env.MODE
   const mock = environnement === 'development'
+
+  const theme = useTheme()
 
   const {
     isOpen,
@@ -82,7 +85,12 @@ export default function LandingPage() {
               </Toolbar>
             </AppBar>
             {/* // ****************** Drawer ******************* // */}
-            <Drawer anchor='left' open={isOpen} variant='temporary'>
+            <Drawer
+              anchor='left'
+              open={isOpen}
+              variant='temporary'
+              style={{ backgroundColor: theme.palette.primary.light }}
+            >
               {/* // ************** Chevron "retour" *************** // */}
               <div
                 style={{
@@ -90,6 +98,7 @@ export default function LandingPage() {
                   flexDirection: 'column',
                   // justifyContent: 'flex-end',
                   alignItems: 'flex-end',
+                  backgroundColor: theme.palette.primary.light,
                 }}
               >
                 <IconButton
@@ -102,32 +111,46 @@ export default function LandingPage() {
                 >
                   <LeftArrow />
                 </IconButton>
-                <Divider />
+                <Divider sx={{ backgroundColor: theme.palette.primary.dark }} />
                 <SwitchTheme />
               </div>
-              <Divider />
+              <Divider sx={{ backgroundColor: theme.palette.primary.dark }} />
               {/* // ****************** Liste "favori" ******************* // */}
               <List
-                sx={{ width: '100%' }}
-                subheader={<ListSubheader edge='left'>Favori</ListSubheader>}
+                sx={{ width: '100%', backgroundColor: theme.palette.primary.light }}
+                subheader={
+                  <ListSubheader edge='left' sx={{ backgroundColor: theme.palette.primary.main }}>
+                    <Typography variant='p' sx={{ color: theme.palette.text.primary }}>
+                      Favori
+                    </Typography>
+                  </ListSubheader>
+                }
               >
-                <ListItem>
-                  <ListItemIcon>
-                    <StarIcon style={{ color: '#ff0' }} />
-                  </ListItemIcon>
-                  <ListItemButton>
-                    <ListItemText
-                      primary={favoriteTownState.townName ? favoriteTownState.townName : null}
-                      onClick={handleClickFavoriteItem}
-                    />
-                  </ListItemButton>
-                </ListItem>
+                {favoriteTownState.townName && (
+                  <ListItem>
+                    <ListItemIcon>
+                      <StarIcon style={{ color: '#ff0' }} />
+                    </ListItemIcon>
+                    <ListItemButton>
+                      <ListItemText
+                        primary={favoriteTownState.townName ? favoriteTownState.townName : null}
+                        onClick={handleClickFavoriteItem}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                )}
               </List>
-              <Divider />
+              <Divider sx={{ backgroundColor: theme.palette.primary.dark }} />
               {/* // ****************** List "Autres Lieu" ******************* // */}
               <List
-                sx={{ width: '100%' }}
-                subheader={<ListSubheader edge='left'>Autres lieux...</ListSubheader>}
+                sx={{ width: '100%', backgroundColor: theme.palette.primary.light }}
+                subheader={
+                  <ListSubheader edge='left' sx={{ backgroundColor: theme.palette.primary.main }}>
+                    <Typography variant='p' sx={{ color: theme.palette.text.primary }}>
+                      Autres lieux
+                    </Typography>
+                  </ListSubheader>
+                }
               >
                 {historique.map((item) => (
                   <div key={item.id} style={{ display: 'flex' }}>
@@ -149,9 +172,15 @@ export default function LandingPage() {
                   </div>
                 ))}
               </List>
-              <Divider />
+              <Divider sx={{ backgroundColor: theme.palette.primary.dark }} />
               {/* // ************ Bouton "+" ********************* // */}
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  backgroundColor: theme.palette.primary.light,
+                }}
+              >
                 <IconButton
                   size='large'
                   edge='end'
@@ -174,19 +203,29 @@ export default function LandingPage() {
             {townInfo && townInfo.townName && (
               <Container style={{ top: '50px', position: 'relative' }}>
                 <Current mock={mock} />
-                <Accordion>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography>Prévisions horaires</Typography>
+                <Accordion
+                  sx={{ backgroundColor: theme.palette.primary.dark, borderRadius: '20px' }}
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon sx={{ color: theme.palette.text.primary }} />}
+                  >
+                    <Typography>Prévisions horaires (24 heures)</Typography>
                   </AccordionSummary>
+                  <Divider sx={{ backgroundColor: theme.palette.primary.dark }} />
                   <AccordionDetails>
                     <Hourly mock={mock} />
                   </AccordionDetails>
                 </Accordion>
-                <Divider />
-                <Accordion>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                <Divider sx={{ backgroundColor: theme.palette.primary.dark }} />
+                <Accordion
+                  sx={{ backgroundColor: theme.palette.primary.dark, borderRadius: '20px' }}
+                >
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon sx={{ color: theme.palette.text.primary }} />}
+                  >
                     <Typography>Prévisions 7 prochains jours</Typography>
                   </AccordionSummary>
+                  <Divider sx={{ backgroundColor: theme.palette.primary.dark }} />
                   <AccordionDetails>
                     <Daily mock={mock} />
                   </AccordionDetails>

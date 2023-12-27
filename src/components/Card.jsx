@@ -7,6 +7,7 @@ import Rain from '@mui/icons-material/WaterDrop'
 import Snow from '@mui/icons-material/AcUnit'
 import Wind from '@mui/icons-material/Air'
 import NavigationIcon from '@mui/icons-material/Navigation'
+import { Tooltip } from '@mui/material'
 
 export default function Card(datas) {
   const [dateAAfficher, setDateAAfficher] = useState(null)
@@ -55,7 +56,24 @@ export default function Card(datas) {
       }}
     >
       <div>{dateAAfficher}</div>
-      <img src={weather.image} />
+      <Tooltip
+        arrow
+        title={weather.description}
+        slotProps={{
+          popper: {
+            modifiers: [
+              {
+                name: 'offset',
+                options: {
+                  offset: [0, -40],
+                },
+              },
+            ],
+          },
+        }}
+      >
+        <img src={weather.image} />
+      </Tooltip>
       <div>
         <Thermometre /> {cardDatas.temperatureMin}°C / {cardDatas.temperatureMax}°C {'  '}
       </div>

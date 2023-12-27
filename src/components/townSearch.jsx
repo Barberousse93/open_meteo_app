@@ -1,4 +1,5 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { useTheme } from '@emotion/react'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
@@ -10,6 +11,7 @@ import ClearIcon from '@mui/icons-material/Clear'
 import Box from '@mui/material/Box'
 import useTownSearch from '../utils/Hooks/useTownSearch'
 import Loader from './Loader'
+import { Container, Paper } from '@mui/material'
 
 function TownSearch(props) {
   const {
@@ -28,6 +30,8 @@ function TownSearch(props) {
     // historique,
   } = useTownSearch(props)
 
+  const theme = useTheme()
+
   if (isLoading) {
     return <Loader />
   }
@@ -36,60 +40,87 @@ function TownSearch(props) {
   }
 
   return (
-    props.formIsVisible && (
-      <Box style={{ margin: '10px', display: 'flex', flexDirection: 'column' }}>
-        <TextField
-          style={{
-            borderRadius: '5px',
+    <div style={{ height: '100vh', backgroundColor: theme.palette.primary.light }}>
+      {props.formIsVisible && (
+        <Paper
+          sx={{
+            margin: '10px',
+            display: 'flex',
+            flexDirection: 'column',
+            backgroundColor: theme.palette.primary.main,
           }}
-          onChange={(e) => handleChange(e)}
-          onKeyUp={handleKeyUp}
-          value={ville}
-          size='small'
-          placeholder='Rechercher une ville...'
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position='start'>
-                <SearchIcon style={{ cursor: 'pointer' }} onClick={handleClick} />
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <InputAdornment position='end'>
-                <ClearIcon onClick={() => setVille('')} style={{ cursor: 'pointer' }} />
-              </InputAdornment>
-            ),
-          }}
-        ></TextField>
+        >
+          {/* Zone de saisie */}
+          <TextField
+            sx={{
+              borderRadius: '5px',
+              // backgroundColor: theme.palette.primary.light,
+            }}
+            onChange={(e) => handleChange(e)}
+            onKeyUp={handleKeyUp}
+            value={ville}
+            size='small'
+            placeholder='Rechercher une ville...'
+            InputProps={{
+              startAdornment: (
+                // Icône "loupe"
+                <InputAdornment position='start'>
+                  <SearchIcon
+                    style={{ cursor: 'pointer', color: theme.palette.text.primary }}
+                    onClick={handleClick}
+                  />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                // Icône "croix"
+                <InputAdornment position='end'>
+                  <ClearIcon
+                    onClick={() => setVille('')}
+                    style={{ cursor: 'pointer', color: theme.palette.text.primary }}
+                  />
+                </InputAdornment>
+              ),
+            }}
+          ></TextField>
 
-        {selectIsVisible && (
-          <FormControl fullWidth>
-            <InputLabel variant='outlined'>Sélectionnez dans la liste</InputLabel>
-            <Select
-              value={changeTown}
-              onChange={(e) => handleChangeTown(e)}
-              defaultValue=''
-              label='Sélectionnez dans la liste'
-            >
-              {resultList.map((item) => (
-                <MenuItem
-                  key={item.id}
-                  value={item.id}
-                  onClick={() =>
-                    handleClickItem({
-                      name: item.name,
-                      latitude: item.latitude,
-                      longitude: item.longitude,
-                    })
-                  }
-                >
-                  {item.name} ({item.admin1}, {item.country})
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        )}
-      </Box>
-    )
+          {selectIsVisible && (
+            <FormControl>
+              {/* Liste déroulante résultat */}
+              <InputLabel variant='outlined'>Sélectionnez dans la liste</InputLabel>
+              <Select
+                sx={{
+                  backgroundColor: theme.palette.primary.light,
+                }}
+                value={changeTown}
+                onChange={(e) => handleChangeTown(e)}
+                defaultValue=''
+                label='Sélectionnez dans la liste'
+              >
+                {resultList.map((item) => (
+                  <MenuItem
+                    sx={{
+                      backgroundColor: theme.palette.primary.light,
+                      color: theme.palette.text.primary,
+                    }}
+                    key={item.id}
+                    value={item.id}
+                    onClick={() =>
+                      handleClickItem({
+                        name: item.name,
+                        latitude: item.latitude,
+                        longitude: item.longitude,
+                      })
+                    }
+                  >
+                    {item.name} ({item.admin1}, {item.country})
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )}
+        </Paper>
+      )}
+    </div>
   )
 }
 
