@@ -11,7 +11,6 @@ import ListSubheader from '@mui/material/ListSubheader'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import ListItemButton from '@mui/material/ListItemButton'
-// import { makeStyles } from '@mui/material'
 // Icones MUI
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
@@ -213,7 +212,11 @@ export default function LandingPage() {
                 </Accordion>
                 <Divider sx={{ backgroundColor: theme.palette.primary.dark }} />
                 <Accordion
-                  sx={{ backgroundColor: theme.palette.primary.dark, borderRadius: '20px' }}
+                  sx={{
+                    backgroundColor: theme.palette.primary.dark,
+                    borderRadius: '20px !important',
+                    marginBottom: '50px !important',
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon sx={{ color: theme.palette.text.primary }} />}
