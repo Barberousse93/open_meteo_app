@@ -15,12 +15,7 @@ export default function useTownSearch(props) {
   const [selectIsVisible, setSelectIsVisible] = useState(false)
   const [faireMAJ, setFaireMAJ] = useState(false)
 
-  const inputRef = useRef()
-
-  const focus = () => {
-    inputRef.current.focus()
-    console.log('Focus !!')
-  }
+  const inputRef = useRef(null)
 
   useEffect(() => {
     // Lecture de l'historique au chargement si il esxite
@@ -39,7 +34,7 @@ export default function useTownSearch(props) {
     if (data && data.results) {
       setResultList(data.results)
       setSelectIsVisible(true)
-      focus()
+      inputRef.current.focus()
     }
   }, [data])
 
