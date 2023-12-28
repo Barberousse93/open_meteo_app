@@ -11,7 +11,7 @@ import ClearIcon from '@mui/icons-material/Clear'
 import Box from '@mui/material/Box'
 import useTownSearch from '../utils/Hooks/useTownSearch'
 import Loader from './Loader'
-import { Container, Paper } from '@mui/material'
+import { Container, List, ListItem, Paper } from '@mui/material'
 
 function TownSearch(props) {
   const {
@@ -85,9 +85,9 @@ function TownSearch(props) {
 
           {selectIsVisible && (
             <FormControl>
-              {/* Liste déroulante résultat */}
-              <InputLabel variant='outlined'>Sélectionnez dans la liste</InputLabel>
-              <Select
+              {/* Liste  résultat */}
+              {/* <InputLabel variant='outlined'>Sélectionnez dans la liste</InputLabel> */}
+              <List
                 sx={{
                   backgroundColor: theme.palette.primary.light,
                 }}
@@ -97,7 +97,7 @@ function TownSearch(props) {
                 label='Sélectionnez dans la liste'
               >
                 {resultList.map((item) => (
-                  <MenuItem
+                  <ListItem
                     sx={{
                       backgroundColor: theme.palette.primary.light,
                       color: theme.palette.text.primary,
@@ -113,9 +113,9 @@ function TownSearch(props) {
                     }
                   >
                     {item.name} ({item.admin1}, {item.country})
-                  </MenuItem>
+                  </ListItem>
                 ))}
-              </Select>
+              </List>
             </FormControl>
           )}
         </Paper>

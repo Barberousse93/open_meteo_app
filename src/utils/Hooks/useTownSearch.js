@@ -46,6 +46,8 @@ export default function useTownSearch(props) {
       ...prevTownInfo,
       name: e.target.value,
     }))
+
+    handleClick()
   }
 
   const handleKeyUp = (e) => {
