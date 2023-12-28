@@ -38,6 +38,22 @@ export default function useTownSearch(props) {
     }
   }, [data])
 
+  useEffect(() => {
+    // Ecriture des données enregistrées dans le LocalStorage
+    const currentTownInfo = townInfo
+    if (currentTownInfo.townName) {
+      localStorage.setItem('OpenMeteo', JSON.stringify(currentTownInfo))
+    }
+  }, [townInfo])
+
+  useEffect(() => {
+    if (faireMAJ) {
+      // console.log('FaireMAJ historique', historique)
+      localStorage.setItem('OpenMeteo_historique', JSON.stringify(historique))
+      setHistorique(historique)
+    }
+  }, [faireMAJ])
+
   function handleClickSearch() {
     setSearchVal(townInfo.name)
   }
@@ -65,22 +81,6 @@ export default function useTownSearch(props) {
   function handleChangeTown(e) {
     setChangeTown(e.target.value)
   }
-
-  useEffect(() => {
-    // Ecriture des données enregistrées dans le LocalStorage
-    const currentTownInfo = townInfo
-    if (currentTownInfo.townName) {
-      localStorage.setItem('OpenMeteo', JSON.stringify(currentTownInfo))
-    }
-  }, [townInfo])
-
-  useEffect(() => {
-    if (faireMAJ) {
-      // console.log('FaireMAJ historique', historique)
-      localStorage.setItem('OpenMeteo_historique', JSON.stringify(historique))
-      setHistorique(historique)
-    }
-  }, [faireMAJ])
 
   function handleClickItem(itemProps) {
     setTownInfo((prevTownInfo) => ({
