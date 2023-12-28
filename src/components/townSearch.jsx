@@ -3,15 +3,11 @@ import { useTheme } from '@emotion/react'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import Select from '@mui/material/Select'
 import SearchIcon from '@mui/icons-material/Search'
 import ClearIcon from '@mui/icons-material/Clear'
-import Box from '@mui/material/Box'
 import useTownSearch from '../utils/Hooks/useTownSearch'
 import Loader from './Loader'
-import { Container, List, ListItem, Paper } from '@mui/material'
+import { List, ListItemButton, Paper } from '@mui/material'
 
 function TownSearch(props) {
   const {
@@ -19,15 +15,15 @@ function TownSearch(props) {
     isLoading,
     error,
     handleKeyUp,
-    handleClick,
+    handleClickSearch,
+    handleClickClear,
     handleChange,
     ville,
-    setVille,
     handleChangeTown,
     changeTown,
     handleClickItem,
     selectIsVisible,
-    // historique,
+    inputRef,
   } = useTownSearch(props)
 
   const theme = useTheme()
@@ -52,10 +48,8 @@ function TownSearch(props) {
         >
           {/* Zone de saisie */}
           <TextField
-            sx={{
-              borderRadius: '5px',
-              // backgroundColor: theme.palette.primary.light,
-            }}
+            inputRef={inputRef}
+            style={{ borderRadius: '5px' }}
             onChange={(e) => handleChange(e)}
             onKeyUp={handleKeyUp}
             value={ville}
@@ -67,7 +61,7 @@ function TownSearch(props) {
                 <InputAdornment position='start'>
                   <SearchIcon
                     style={{ cursor: 'pointer', color: theme.palette.text.primary }}
-                    onClick={handleClick}
+                    onClick={handleClickSearch}
                   />
                 </InputAdornment>
               ),
@@ -75,7 +69,7 @@ function TownSearch(props) {
                 // Icône "croix"
                 <InputAdornment position='end'>
                   <ClearIcon
-                    onClick={() => setVille('')}
+                    onClick={() => handleClickClear()}
                     style={{ cursor: 'pointer', color: theme.palette.text.primary }}
                   />
                 </InputAdornment>
@@ -97,7 +91,7 @@ function TownSearch(props) {
                 label='Sélectionnez dans la liste'
               >
                 {resultList.map((item) => (
-                  <ListItem
+                  <ListItemButton
                     sx={{
                       backgroundColor: theme.palette.primary.light,
                       color: theme.palette.text.primary,
@@ -113,7 +107,7 @@ function TownSearch(props) {
                     }
                   >
                     {item.name} ({item.admin1}, {item.country})
-                  </ListItem>
+                  </ListItemButton>
                 ))}
               </List>
             </FormControl>

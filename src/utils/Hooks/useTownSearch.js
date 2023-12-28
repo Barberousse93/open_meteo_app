@@ -1,6 +1,5 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, useRef } from 'react'
 import useFetch from './useFetch'
-// import { Town } from '../Hooks/useLandingPage'
 import { Historique, Town } from '../Hooks/useLandingPage'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -14,8 +13,14 @@ export default function useTownSearch(props) {
   const [changeTown, setChangeTown] = useState('')
   const [resultList, setResultList] = useState([])
   const [selectIsVisible, setSelectIsVisible] = useState(false)
-
   const [faireMAJ, setFaireMAJ] = useState(false)
+
+  const inputRef = useRef()
+
+  const focus = () => {
+    inputRef.current.focus()
+    console.log('Focus !!')
+  }
 
   useEffect(() => {
     // Lecture de l'historique au chargement si il esxite
@@ -24,35 +29,41 @@ export default function useTownSearch(props) {
   }, [])
 
   useEffect(() => {
-    if (searchVal) {
+    // Déclenchement de la recherche
+    if (searchVal.length > 2) {
       fetchTownSearch()
-      if (data && data.results) {
-        setResultList(data.results)
-        setSelectIsVisible(true)
-      }
     }
-  }, [searchVal, data])
+  }, [searchVal])
 
-  function handleClick() {
-    setSearchVal(townInfo.name)
-    if (townInfo.name !== ville) {
-      setVille('')
+  useEffect(() => {
+    if (data && data.results) {
+      setResultList(data.results)
+      setSelectIsVisible(true)
+      focus()
     }
+  }, [data])
+
+  function handleClickSearch() {
+    setSearchVal(townInfo.name)
+  }
+
+  function handleClickClear() {
+    setVille('')
+    setResultList([])
   }
 
   function handleChange(e) {
     setVille(e.target.value)
+    setSearchVal(e.target.value)
     setTownInfo((prevTownInfo) => ({
       ...prevTownInfo,
       name: e.target.value,
     }))
-
-    handleClick()
   }
 
   const handleKeyUp = (e) => {
     if (e.key === 'Enter' && e.target.value !== '') {
-      handleClick()
+      handleClickSearch()
     }
   }
 
@@ -70,7 +81,7 @@ export default function useTownSearch(props) {
 
   useEffect(() => {
     if (faireMAJ) {
-      console.log('FaireMAJ historique', historique)
+      // console.log('FaireMAJ historique', historique)
       localStorage.setItem('OpenMeteo_historique', JSON.stringify(historique))
       setHistorique(historique)
     }
@@ -145,7 +156,8 @@ export default function useTownSearch(props) {
     isLoading,
     error,
     handleKeyUp,
-    handleClick,
+    handleClickSearch,
+    handleClickClear,
     handleChange,
     ville,
     setVille,
@@ -154,5 +166,6 @@ export default function useTownSearch(props) {
     handleClickItem,
     selectIsVisible,
     historique,
+    inputRef,
   }
 }
