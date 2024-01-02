@@ -19,8 +19,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import LeftArrow from '@mui/icons-material/KeyboardArrowLeft'
 import StarIcon from '@mui/icons-material/Star'
 import Divider from '@mui/material/Divider'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
+
 // Composants REACT
 import React, { useState, useEffect, createContext } from 'react'
 // Composants internes
@@ -201,7 +200,7 @@ export default function LandingPage() {
 
                 <Hourly mock={mock} />
                 <Divider sx={{ backgroundColor: theme.palette.primary.dark }} />
-                <Accordion
+                {/* <Accordion
                   sx={{
                     backgroundColor: theme.palette.primary.dark,
                     borderRadius: '20px !important',
@@ -214,10 +213,10 @@ export default function LandingPage() {
                     <Typography>Prévisions 7 prochains jours</Typography>
                   </AccordionSummary>
                   <Divider sx={{ backgroundColor: theme.palette.primary.dark }} />
-                  <AccordionDetails>
-                    <Daily mock={mock} />
-                  </AccordionDetails>
-                </Accordion>
+                  <AccordionDetails> */}
+                <Daily mock={mock} />
+                {/* </AccordionDetails>
+                </Accordion> */}
               </Container>
             )}
           </Box>

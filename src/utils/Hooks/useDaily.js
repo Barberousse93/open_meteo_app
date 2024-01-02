@@ -9,14 +9,15 @@ export default function useDaily(props) {
   const [url, setUrl] = useState('')
   const { data, isLoading, error } = useFetch(url)
   const [daily, setDaily] = useState({})
+  const [isAccordionOpen, setAccordionOpen] = useState(false)
 
   //   if (daily) console.log('daily', daily)
 
   useEffect(() => {
-    if (townInfo.townName) {
+    if (townInfo.townName && isAccordionOpen) {
       fetchDaily()
     }
-  }, [townInfo])
+  }, [townInfo, isAccordionOpen])
 
   useEffect(() => {
     if (data.daily) {
@@ -33,5 +34,9 @@ export default function useDaily(props) {
     setUrl(apiUrl)
   }
 
-  return { isLoading, error, daily }
+  const handleAccordionToggle = () => {
+    setAccordionOpen((prev) => !prev)
+  }
+
+  return { isLoading, error, daily, isAccordionOpen, handleAccordionToggle }
 }
