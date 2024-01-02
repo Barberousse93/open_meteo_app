@@ -23,7 +23,7 @@ import Divider from '@mui/material/Divider'
 // Composants REACT
 import React, { useState, useEffect, createContext } from 'react'
 // Composants internes
-import TownSearch from '../components/TownSearch.jsx'
+import TownSearch from './TownSearch.jsx'
 import Current from '../components/Current.jsx'
 import Daily from '../components/Daily.jsx'
 import Hourly from '../components/Hourly/hourly.jsx'
