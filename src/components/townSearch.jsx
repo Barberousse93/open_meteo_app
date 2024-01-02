@@ -106,7 +106,7 @@ function TownSearch(props) {
                       })
                     }
                   >
-                    {item.name} ({item.admin1}, {item.country})
+                    {item.name} {item.country && `(${item.admin1}, ${item.country})`}
                   </ListItemButton>
                 ))}
               </List>

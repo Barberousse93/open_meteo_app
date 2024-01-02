@@ -51,9 +51,9 @@
       "2023-12-18T16:51",
       "2023-12-19T16:51"
     ],
-    "rain_sum": [1.6, 0.1, 0.1, 0, 0, 0, 0.9],
-    "snowfall_sum": [0, 0, 0, 0, 0, 0, 0],
-    "precipitation_probability_max": [94, 19, 6, 0, 0, 4, 26],
+    "rain_sum": [1.6, 0.1, 0.1, 2, 0, 0, 0.9],
+    "snowfall_sum": [0, 0, 0, 1, 0, 0, 0],
+    "precipitation_probability_max": [94, 19, 6, 1, 0, 4, 26],
     "wind_speed_10m_max": [21.4, 18.4, 8.8, 2.9, 7.8, 11.6, 15],
     "wind_gusts_10m_max": [34.6, 32.8, 16.6, 4.7, 13.7, 22.7, 28.1],
     "wind_direction_10m_dominant": [241, 302, 250, 212, 81, 236, 242]

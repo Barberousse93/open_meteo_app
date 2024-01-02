@@ -51,8 +51,6 @@ export default function Card(datas) {
         alignItems: 'center',
         justifyContent: 'space-around',
         marginBottom: '10px',
-        // border: '1px solid black',
-        // borderRadius: '10px',
       }}
     >
       <div>{dateAAfficher}</div>
@@ -74,25 +72,25 @@ export default function Card(datas) {
       >
         <img src={weather.image} />
       </Tooltip>
-      <div>
-        <Thermometre /> {cardDatas.temperatureMin}°C / {cardDatas.temperatureMax}°C {'  '}
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Thermometre /> {cardDatas.temperatureMin}°C / {cardDatas.temperatureMax}°C
       </div>
-      <div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <SunsetSunrise /> {sunSetRise.sunrise} / {sunSetRise.sunset}
       </div>
-
-      <div>
-        <Rain /> {cardDatas.precipitationProbability}%
-        {cardDatas.precipitationProbability > 0 ? <div>{cardDatas.rainSum}mm</div> : null}
-      </div>
-
-      {cardDatas.snowfallSum > 0 ? (
-        <div>
-          <Snow /> {cardDatas.snowfallSum}cm
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Rain /> {cardDatas.precipitationProbability}%
+          {cardDatas.precipitationProbability > 0 ? <div>{cardDatas.rainSum}mm</div> : null}
         </div>
-      ) : null}
 
-      <div>
+        {cardDatas.snowfallSum > 0 ? (
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Snow /> {cardDatas.snowfallSum}cm
+          </div>
+        ) : null}
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Wind /> {cardDatas.windSpeedMax}km/h{' '}
         <NavigationIcon sx={{ transform: `rotate(${correctedDirection}deg)`, ml: 1 }} /> (
         {cardDatas.windGustsMax}km/h)

@@ -35,6 +35,11 @@ export default function useTownSearch(props) {
       setResultList(data.results)
       setSelectIsVisible(true)
       inputRef.current.focus()
+      if (data.results.length === 1) {
+        handleClickItem(data.results[0])
+      }
+    } else {
+      setResultList([{ id: 0, name: 'Pas de résultat' }])
     }
   }, [data])
 
@@ -83,6 +88,8 @@ export default function useTownSearch(props) {
   }
 
   function handleClickItem(itemProps) {
+    if (itemProps.name === 'Pas de résultat') return
+
     setTownInfo((prevTownInfo) => ({
       ...prevTownInfo,
       townName: itemProps.name,
