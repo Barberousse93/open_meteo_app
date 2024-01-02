@@ -1,16 +1,16 @@
 // https://api.open-meteo.com/v1/forecast?latitude=48.5115&longitude=3.5601&hourly=temperature_2m,apparent_temperature,precipitation_probability,rain,showers,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day&timezone=auto&past_days=1&past_hours=1&forecast_hours=24
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, useRef } from 'react'
 import useFetch from './useFetch'
 import { Town } from '../Hooks/useLandingPage'
 import convertHourly from '../../utils/convertHourly'
 
 export default function useHourly(props) {
   const { townInfo } = useContext(Town)
-
   const [url, setUrl] = useState('')
   const { data, isLoading, error } = useFetch(url)
   const [hourly, setHourly] = useState([])
   const [convertedHourly, setConvertedHourly] = useState(null)
+  const [isAccordionOpen, setAccordionOpen] = useState(false)
 
   useEffect(() => {
     if (hourly) {
@@ -19,10 +19,10 @@ export default function useHourly(props) {
   }, [hourly])
 
   useEffect(() => {
-    if (townInfo.townName) {
+    if (townInfo.townName && isAccordionOpen) {
       fetchHourly()
     }
-  }, [townInfo])
+  }, [townInfo, isAccordionOpen])
 
   useEffect(() => {
     if (data.hourly) {
@@ -35,8 +35,11 @@ export default function useHourly(props) {
       ? 'src/mockedDatas/hourly.json'
       : `https://api.open-meteo.com/v1/forecast?latitude=${townInfo.latitude}&longitude=${townInfo.longitude}&hourly=temperature_2m,apparent_temperature,precipitation_probability,rain,snowfall,weather_code,cloud_cover,wind_speed_10m,wind_direction_10m,wind_gusts_10m,is_day&timezone=auto&past_days=1&past_hours=1&forecast_hours=24
       `
-
     setUrl(apiUrl)
+  }
+
+  const handleAccordionToggle = () => {
+    setAccordionOpen((prev) => !prev)
   }
 
   return {
@@ -44,5 +47,7 @@ export default function useHourly(props) {
     isLoading,
     error,
     convertedHourly,
+    handleAccordionToggle,
+    isAccordionOpen,
   }
 }

@@ -20,6 +20,7 @@ import LeftArrow from '@mui/icons-material/KeyboardArrowLeft'
 import StarIcon from '@mui/icons-material/Star'
 import Divider from '@mui/material/Divider'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
 // Composants REACT
 import React, { useState, useEffect, createContext } from 'react'
 // Composants internes
@@ -32,7 +33,7 @@ import useLandingPage from '../utils/Hooks/useLandingPage.js'
 import { Historique } from '../utils/Hooks/useLandingPage.js'
 import { FavoriteTown } from '../utils/Hooks/useLandingPage.js'
 import { Town } from '../utils/Hooks/useLandingPage.js'
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
+
 import { useTheme } from '@emotion/react'
 
 export default function LandingPage() {
@@ -197,19 +198,8 @@ export default function LandingPage() {
             {townInfo && townInfo.townName && (
               <Container style={{ top: '50px', position: 'relative' }}>
                 <Current mock={mock} />
-                <Accordion
-                  sx={{ backgroundColor: theme.palette.primary.dark, borderRadius: '20px' }}
-                >
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon sx={{ color: theme.palette.text.primary }} />}
-                  >
-                    <Typography>Prévisions horaires (24 heures)</Typography>
-                  </AccordionSummary>
-                  <Divider sx={{ backgroundColor: theme.palette.primary.dark }} />
-                  <AccordionDetails>
-                    <Hourly mock={mock} />
-                  </AccordionDetails>
-                </Accordion>
+
+                <Hourly mock={mock} />
                 <Divider sx={{ backgroundColor: theme.palette.primary.dark }} />
                 <Accordion
                   sx={{
