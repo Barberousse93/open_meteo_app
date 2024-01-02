@@ -146,7 +146,6 @@ function Current(props) {
               <Wind
                 sx={{
                   m1: 1,
-                  fontSize: 35,
                   color: 'gray',
                   fontSize: {
                     lg: 35,
